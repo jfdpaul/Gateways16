@@ -1,0 +1,56 @@
+<html>
+<head>
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link href="../bower_components/paper-tabs/paper-tabs.html" rel="import">
+<link href="../bower_components/app-route/app-route.html" rel="import">
+<link href="../bower_components/app-location/app-location.html" rel="import">
+
+<style is="custom-style">
+#video_frame{
+display:block;
+text-align:center;
+}
+
+ :root {
+            --my-custom-color: red;
+            --paper-tab-ink: var(--my-custom-color);
+
+            --paper-tabs-selection-bar-color: blue;
+
+            --paper-tabs: {
+                color: var(--default-primary-color);
+                font-size: 25px;
+            }
+        }
+</style>
+
+</head>
+<body>
+<paper-tabs selected="0" no-slide>
+  <paper-tab>VIDEO</paper-tab>
+  <paper-tab>GATEWAYS '15</paper-tab>
+</paper-tabs>
+
+<iron-pages selected="0">
+    <div>
+	
+	<div id="video_frame" >
+	Coming Soon Video<br>
+	<iframe width="850" height="650" src="https://www.youtube.com/embed/Tcf8_ql1nKQ" frameborder="0" allowfullscreen></iframe>
+</div>
+    </div>
+    <div>
+	Photo Gallery
+    </div>
+</iron-pages>
+
+<script>
+     var pages = document.querySelector('iron-pages');
+     var tabs = document.querySelector('paper-tabs');
+
+    tabs.addEventListener('iron-select', function() { 
+        pages.selected = tabs.selected;
+    });
+</script>
+</body>
+</html>

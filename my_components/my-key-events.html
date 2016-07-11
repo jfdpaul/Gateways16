@@ -1,0 +1,44 @@
+<dom-module id='my-key-events'>
+
+  <link rel="import"  href="../bower_components/paper-input/paper-input.html">
+  <link rel="import"  href="../bower_components/paper-dialog/paper-dialog.html">
+  <link rel="import"  href="../bower_components/paper-button/paper-button.html">
+  <link rel="import"  href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+  <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
+  <link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+
+  <template>
+    <iron-a11y-keys id="a11y" target="[[target]]" keys="enter" on-keys-pressed ="onEnter"></iron-a11y-keys>
+    <paper-input id="input" placeholder="Type something. Press enter. Check console." value="{{userInput::input}}"></paper-input>
+    <paper-input value="{{ userInput::input }}"></paper-input>
+    <paper-button on-tap="toggleDialog">Press</paper-button>
+    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <iframe width="850" height="550" src="https://www.youtube.com/embed/Tcf8_ql1nKQ" frameborder="1" allowfullscreen></iframe>
+    </paper-dialog>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'my-key-events',
+
+    properties: {
+      userInput: {
+        type: String,
+        notify: true,
+      },
+      target: {
+        type: Object,
+        value: function() {
+          return this.$.input;
+          }
+      }
+    },
+    toggleDialog: function() {
+                this.$.dialog.toggle();
+    },
+    onEnter: function() {
+      console.log(this.userInput);
+      }
+  });
+</script>

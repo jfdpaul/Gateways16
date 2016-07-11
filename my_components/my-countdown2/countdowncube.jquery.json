@@ -1,0 +1,27 @@
+{
+  "name": "countdowncube",
+  "title": "Countdown Cube",
+  "homepage": "http://cigari.co.uk/countdown",
+  "demo": "http://cigari.co.uk/countdown",
+  "author": {
+        "name": "Ali Cigari",
+        "url": "http://cigari.co.uk"
+    },
+  "version": "0.0.8",
+  "main": "countdowncube.js",
+  "dependencies": {
+        "jquery": ">=1.0"
+  },
+  "description": "CountdownCube is a countdown timer in form of a set of (CSS-transition based) rotating 3D cubes.",
+  "licenses": [ {
+    "type": "MIT",
+    "url": "https://github.com/oofaish/countdownCube/blob/master/license.txt"
+  }],
+  "keywords":[
+    "ui",
+    "countdown",
+    "timer",
+    "3d",
+    "cube"
+  ]
+}

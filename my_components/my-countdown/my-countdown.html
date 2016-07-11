@@ -1,0 +1,72 @@
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript" src="clock_assets/flipclock.js"></script>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="my-countdown">
+  <link rel="stylesheet" type="text/css" href="./clock_assets/flipclock.css">
+  <template>
+    <style>
+        #clock{
+          padding:18px;
+          display:inline-flex;
+          background:#EEFFEE;
+          border-radius: : 60px;  
+          margin:auto;
+        }
+        body .flip-clock-wrapper ul li a div div.inn, body .flip-clock-small-wrapper ul li a div div.inn {
+            color: #EEE;
+            background-color: #AA3333;
+          }
+          body .flip-clock-dot, body .flip-clock-small-wrapper .flip-clock-dot {
+            background: #000;
+          }
+          body .flip-clock-wrapper .flip-clock-meridium a, body .flip-clock-small-wrapper .flip-clock-meridium a {
+            color: #FFF;
+          }
+      </style>
+    <div id="clock">
+      <div class="clock-builder-output" sytle="display:inline"></div>
+      <script>
+
+      </script>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is:'my-countdown',
+    properties:{
+      starttime:{
+        type:Number,
+        value:0
+      },
+      endtime:{
+        type:Number,
+        value:0
+      }
+    },
+
+    ready:function(e){
+      var e = this.endtime;
+      var s = this.starttime;
+      $(function(){
+          FlipClock.Lang.Custom = { days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds' };
+          var opts = {
+            clockFace: 'DailyCounter',
+            countdown: true,
+            language: 'Custom'
+            };
+            /*<?php
+              //date_default_timezone_set('India/Kolkata');
+              //$date=mktime(0, 0, 0, 8, 15, 2016);  //from 15 August 2016 00:00:00 am
+            ?>*/
+          var countdown = e - s ; // from: 08/15/2016 12:00 am +0530
+          //var countdown = (<?php //echo date("U", $date);?>) - (<?php //echo time()?>); // from: 08/15/2016 12:00 am +0530
+          countdown = Math.max(1, countdown);
+          $('.clock-builder-output').FlipClock(countdown, opts);
+        });
+      }
+  });
+
+</script>

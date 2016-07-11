@@ -1,0 +1,97 @@
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<dom-module id="my-console">
+  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+  <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+  <link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+  <link rel="import"  href="../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+
+  <template>
+
+      <style is="custom-style">
+
+        :host{
+          z-index:9999;
+          padding:5px;
+          margin:3px;
+          position:absolute;
+          bottom:0px;
+          right:0px;
+          display:block;
+          background:#111;
+          border:2px solid black;
+          width:500px;
+          height:200px;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        #history,paper-input{
+          --paper-input-container-focus-color:111;
+          --paper-input-container-color:111;
+          --paper-input-container-input-color:white;
+          color:white;
+          width:400px;
+          display:inline-block;
+        }
+      </style>
+
+    <div id="container">
+      <iron-a11y-keys id="a11y" target="[[target]]" keys="enter" on-keys-pressed ="onEnter"></iron-a11y-keys>
+      <paper-textarea id="history" value="{{ pastdata::input }}" no-label-float max-rows="7" readonly></paper-textarea>
+      <paper-input id="input1" style="position:relative;top:-15px"  no-label-float value="{{ userInput::input }}">
+        <div prefix > {{ path }} # &nbsp</div>
+      </paper-input>
+    </div>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is:'my-console',
+    properties:{
+      userInput:{
+        type:String,
+        notify:true
+      },
+      path:{
+        type:String,
+        value:'[gateways]'
+      },
+      pastdata:{
+        type:String,
+        notify:true,
+        value:"*** Welcome to Gateways 2016 *** \nThis terminal is your CLI in the entire website.\n<commands> : help, video, about, contacts, exit"
+      },
+      target: {
+        type: Object,
+        value: function() {
+          return this.$.input1;
+          }
+      }
+    },
+
+    clearConsole : function(){
+      this.pastdata="";
+    },
+    onEnter: function() {
+
+      if(this.userInput!="")
+        this.pastdata=this.pastdata+'\n'+this.path+" #"+this.userInput;
+
+      if(this.userInput==="clear"){
+          this.clearConsole();
+      }
+      else{
+        this.pastdata=this.pastdata+'\ngateways: '+this.userInput+' command not found...';
+      }
+      this.userInput="";
+      $(document).ready(function(){
+        $("#history textarea").scrollTop(9999);
+      });
+    }
+
+  });
+</script>
+<my-console></my-console>
