@@ -1,0 +1,29 @@
+<dom-module id="my-eventregistration">
+  <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="my-teams.html">
+  <template>
+    <iron-ajax
+        auto
+        url="../data/event_details.json"
+        handle-as="json"
+        last-response="{{jsondata}}">
+    </iron-ajax>
+
+    <template is="dom-repeat" items="{{jsondata.events}}">
+      <my-teams team="{{item}}"></my-teams>
+    </template>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is:'my-eventregistration',
+    properties:{
+      jsondata:{
+        type:Object,
+        notify:true
+      }
+    }
+  });
+</script>
+<my-eventregistration></my-eventregistration>

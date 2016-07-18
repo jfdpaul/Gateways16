@@ -1,0 +1,32 @@
+<dom-module id="my-teams">
+  <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+  <template>
+    <style>
+      #content{
+        background:#ccc;
+      }
+    </style>
+    <div id="content">
+      <a href="#" style="text-decoration:none;font-size:20px" on-click="toggle">{{team.name}}</a>
+      <iron-collapse id="collapse">
+        <div class="collapse-content">
+          <div>{{team.description}}</div>
+        </div>
+      </iron-collapse>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is:'my-teams',
+      properties:{
+        team:{
+          type:Object,
+          notify:true
+        }
+      },
+      toggle: function() {
+        this.$.collapse.toggle();
+      }
+    });
+  </script>
+</dom-module>

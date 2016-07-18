@@ -135,9 +135,14 @@
         @media only screen and (max-width:850px){
 
         }
+
+        .flex-horizontal > div{
+          display:inline-block;
+          float : left;
+        }
       </style>
 
-      <!-- Custom style for top navigation bar -->
+      <!-- Custom style for top navigation bar
       <style is="custom-style">
         /**Top navigation bar + logo*/
         .flex-horizontal {
@@ -147,7 +152,7 @@
           @apply(--layout-flex);
         }
       </style>
-
+-->
       <title>Gateways</title>
 
   </head>
@@ -158,6 +163,12 @@
       <div id="top_menu" class="container flex-horizontal">
         <div style="background-image: url('./images/gateways-logo-white.png'); min-width:250px;min-height:200px;background-size: 200px ; background-repeat:no-repeat"></div>
         <div id="menu_items" class="flexchild" style="margin-top:50px">
+          <!--<iron-selector selected="0">
+            <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#video"><paper-item onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
+          </iron-selector>-->
           <iron-selector selected="0">
             <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
@@ -165,18 +176,18 @@
             <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
           </iron-selector>
         </div>
-        <div class="flexchild" style="margin-top:50px;">
-          <iron-selector selected="0" style="display:block;float:right;display:block">
+        <div style="background-image: url('./images/christ.png');  min-width:300px;min-height:200px;background-size: 300px; background-repeat:no-repeat;float:right"></div>
+        <div class="flexchild" style="display:block;float:right;margin-top:50px;">
+          <iron-selector selected="0" style="display:block">
             <div class="nav"><a class="anchor" href="#login"><paper-item onclick="logintoast.open()"><paper-ripple></paper-ripple>Login</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#register"><paper-item onclick="registrationtoast.open()"><paper-ripple center></paper-ripple>Register</paper-item></a></div>
           </iron-selector>
         </div>
-        <div style="background-image: url('./images/christ.png');  min-width:300px;min-height:200px;background-size: 300px; background-repeat:no-repeat"></div>
       </div>
       <!-- END OF MENU -->
 
       <!-- MAIN FLEX  -->
-      <div id="flex">
+      <div id="flex" style="clear:both;">
         <div id="main-flex" class="white">
              <p style="font-size:18px">Department of Computer Science</p>
              <br>
@@ -358,7 +369,7 @@
 <paper-toast class="toast" id="eventstoast" text="In Progress..."></paper-toast>
 
 
-<!-- Sound -->
+<!-- Sound
 <audio id="beep-one" preload="auto">
 	<source src="audio/beep.mp3" controls></source>
 	<source src="audio/beep.ogg" controls></source>
@@ -372,6 +383,7 @@
   		beepOne.play();
   	});
 </script>
+-->
 
 <!-- Animation of welcome message -->
 <script>

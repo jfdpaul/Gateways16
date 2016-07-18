@@ -1,10 +1,20 @@
-[
-  "event":{
+{
+  "events":
+  [
+    {
+      "id":1,
     "name":"Code Clash",
     "description":"Coding Event"
-  },
-  "event":{
-    "name":"IT MANAGER",
-    "description":"MANAGE Event"
-  }
-]
+    },
+    {
+      "id":2,
+      "name":"IT MANAGER",
+      "description":"MANAGE Event"
+    },
+    {
+      "id":2,
+      "name":"IT MANAGER",
+      "description":"MANAGE Event"
+    }
+  ]
+}
