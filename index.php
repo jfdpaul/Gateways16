@@ -9,6 +9,7 @@
     <link rel="import" href="./bower_components/paper-ripple/paper-ripple.html">
     <link rel="import" href="./bower_components/paper-toast/paper-toast.html">
     <link rel="import" href="./bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="./bower_components/paper-card/paper-card.html">
     <link rel="import" href="./bower_components/iron-dropdown/iron-dropdown.html">
     <link rel="import" href="./bower_components/iron-icon/iron-icon.html">
     <link rel="import" href="./bower_components/iron-icons/communication-icons.html">
@@ -233,7 +234,6 @@
             </script>
           </div>
             <!-- Delete till here -->
-
           <!--<my-countdown endtime="<?php //echo date("U", $date); ?>" starttime="<?php //echo time()?>"></my-countdown>-->
             <p id="registration-date" style="font-size:25px"><b>Registration starts from August 15, 2016</b></p>
         </center>
@@ -243,9 +243,9 @@
 
     <!-- ABOUT  -->
     <article style="background:#F2F2F2;color:#000; height:100%;width:80%; margin:auto;position:relative;top:-50px;z-index:1;display:block;position:relative">
-      <div id="about" style="padding-top:1%;padding-right:100px;padding-left:100px;opacity:0.8">
+      <div id="about" style="padding-top:1%;padding-right:100px;padding-left:100px;opacity:0.8;text-align:justify">
         <h1 style="font-size:40px;">ABOUT</h1>
-          <div style="display:inline-block;font-size:15px;max-width:40%;padding-left:15px">
+          <div style="display:inline-block;font-size:15px;max-width:40%;padding:4px;padding-left:15px;">
             <b style="position:relative;top:-15px;font-size:25px">FEST</b>
               <p>Gateways is the national level inter-collegiate post graduate IT fest organized
               by the Department of Computer Science, Christ University.
@@ -257,21 +257,22 @@
               abreast with latest trends in technology and developing their organisational and soft skills.
             </p>
           </div>
-          <div style="display:inline-block;font-size:15px;max-width:40%;float:right;padding-right:15px">
-            <b style="position:relative;top:-15px;font-size:25px">MOBIUX</b>
+          <div style="display:inline-block;font-size:15px;max-width:40%;float:right;padding:4px;padding-right:15px;position:relative;top:-11px;">
+            <div  style="background-image:url('./images/mobiux.png');background-repeat:no-repeat;background-size:100% 100%;z-index:3;min-height:50px;min-width:85px;display:inline-block"></div>
             <p>This Gateways, MOBIUX - an acronym for Modular Building Blocks and AI, has been selected as the theme to drive the fest.
             Be it Google's project ARA and Arduino boards in hardware, or Web Components and Web API in software,
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
-          <p style="display:inline-block;font-size:15px;">
+          <!--<p style="display:inline-block;font-size:15px;">
             We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.
           </p>
+          -->
         </div>
         <div style="position:absolute;background-image:url('./images/blocks.jpg');background-repeat:no-repeat;background-size:100% 100%;min-width:100%;min-height:500px;bottom:-90px;z-index:-1"></div>
     </article>
     <article style="padding:30px;font-size:50px;background-color:#007Daf;color:white;min-height:100px;text-align:center;position:relative;top:-50px;z-index:10;box-shadow: 2px 8px 2px #aaaaaa;">
-      Stay Tuned...
+      <div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.' style="background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:-1;"></div><span>Stay Tuned...</span>
     </article>
     <footer style="text-align:center;background:#FFF;padding:10px;height:100px;position:relative;box-shadow: 0px -5px 5px #555;">
         <div  id="connector" style="min-height:80px;width:80%;margin-left:9%;position:absolute;top:-40px;background:#FFF;z-index:-2;">
@@ -356,6 +357,22 @@
 <paper-toast class="toast" id="videotoast" text="Teaser coming soon..."></paper-toast>
 <paper-toast class="toast" id="eventstoast" text="In Progress..."></paper-toast>
 
+
+<!-- Sound -->
+<audio id="beep-one" preload="auto">
+	<source src="audio/beep.mp3" controls></source>
+	<source src="audio/beep.ogg" controls></source>
+	Your browser isn't invited for super fun audio time.
+</audio>
+
+<script>
+  var beepOne = $("#beep-one")[0];
+  $(".nav")
+  	.click(function() {
+  		beepOne.play();
+  	});
+</script>
+
 <!-- Animation of welcome message -->
 <script>
 $( document ).ready(function() {
@@ -365,4 +382,3 @@ $( document ).ready(function() {
                    .fadeIn(9000);
 });
   </script>
-  <my-console></my-console>
