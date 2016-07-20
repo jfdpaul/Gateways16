@@ -12,7 +12,9 @@
     <link rel="import" href="./bower_components/paper-card/paper-card.html">
     <link rel="import" href="./bower_components/iron-dropdown/iron-dropdown.html">
     <link rel="import" href="./bower_components/iron-icon/iron-icon.html">
+    <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="./bower_components/iron-icons/communication-icons.html">
+    <link rel="import" href="./bower_components/paper-spinner/paper-spinner.html">
     <link rel="import" href="./bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="./my_components/my-countdown/my-countdown.html">
     <link rel="import" href="./my_components/my-console.html">
@@ -38,10 +40,6 @@
         @font-face {
                 font-family: custom-font;
                 src: url(2589-ldr.regular.ttf);
-                /*src: url(fonts/destencilnf/DeStencilNF.ttf);
-                /*src: url(fonts/graycat/GrayCat.ttf);*/
-                /*src: url(fonts/psipbrg/PSIPBRG_.TTF);*/
-                /*src: url(neon2.ttf);*/
         }
 
         /**For background animation*/
@@ -75,7 +73,6 @@
         #flex{
           position:relative;
           top:-50px;
-/*          height:90%;*/
         }
 
         #main-flex{
@@ -96,10 +93,7 @@
           left:0px;
           bottom:200px;
           font-size: 20px;
-/*          background-color: rgba(0,125,175,0.8);*/
           background-color: rgba(0,0,0,0.8);
-          /*border:1px solid rgba(200,200,200,0.8);
-          background-color: rgba(0,0,0,0.8);*/
           color:#FFF;
         }
 
@@ -141,34 +135,18 @@
           float : left;
         }
       </style>
-
-      <!-- Custom style for top navigation bar
-      <style is="custom-style">
-        /**Top navigation bar + logo*/
-        .flex-horizontal {
-          @apply (--layout-horizontal);
-        }
-        .flexchild {
-          @apply(--layout-flex);
-        }
-      </style>
--->
       <title>Gateways</title>
 
   </head>
+  <paper-spinner id="spin" active style="position:absolute;left:40%;top:20%;width:300px;height:300px;visibility:visible"></paper-spinner>
   <body onload="animateGateways();" style="visibility:hidden;">
-
+    <div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'
+    style="position:fixed;right:10px;bottom:40px;background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:9990;"></div>
     <!-- TOP MENU  -->
     <div id="first_view" style="background-image:url('images/back.jpg');">
       <div id="top_menu" class="container flex-horizontal">
         <div style="background-image: url('./images/gateways-logo-white.png'); min-width:250px;min-height:200px;background-size: 200px ; background-repeat:no-repeat"></div>
         <div id="menu_items" class="flexchild" style="margin-top:50px">
-          <!--<iron-selector selected="0">
-            <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#video"><paper-item onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
-          </iron-selector>-->
           <iron-selector selected="0">
             <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
@@ -275,15 +253,11 @@
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
-          <!--<p style="display:inline-block;font-size:15px;">
-            We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.
-          </p>
-          -->
         </div>
         <div style="position:absolute;background-image:url('./images/blocks.jpg');background-repeat:no-repeat;background-size:100% 100%;min-width:100%;min-height:500px;bottom:-90px;z-index:-1"></div>
     </article>
     <article style="padding:30px;font-size:50px;background-color:#007Daf;color:white;min-height:100px;text-align:center;position:relative;top:-50px;z-index:10;box-shadow: 2px 8px 2px #aaaaaa;">
-      <div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.' style="background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:-1;"></div><span>Stay Tuned...</span>
+      <span>Stay Tuned...</span>
     </article>
     <footer style="text-align:center;background:#FFF;padding:10px;height:100px;position:relative;box-shadow: 0px -5px 5px #555;">
         <div  id="connector" style="min-height:80px;width:80%;margin-left:9%;position:absolute;top:-40px;background:#FFF;z-index:-2;">
@@ -297,7 +271,7 @@
               --iron-icon-width: 32px;
               }
             </style>
-            <a href="mailto:gateways@cs.christuniversity.in" style="text-decoration:none;color:#000;" title="Contact us at gateways16@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
+            <a href="mailto:gateways@cs.christuniversity.in" style="text-decoration:none;color:#000;" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
           </span>
         <span>
           <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
@@ -312,9 +286,9 @@
   </body>
 </html>
 
-<paper-dialog id="videodialog">
-  <!--<iframe width="850" height="500" src="https://www.youtube.com/embed/Tcf8_ql1nKQ" frameborder="0" allowfullscreen></iframe>-->
-  <div style="color:#FFF;background:#000;min-height:500px;min-width:850px;font-size:50px;text-align:center"><br><br><br>Teaser in progress...</div>
+<paper-dialog id="videodialog" modal>
+  <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseVideo()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
+  <iframe id="myvideo" width="850" height="500" src="https://www.youtube.com/embed/WdWja6Y7blc" frameborder="0" allowfullscreen></iframe>
 </paper-dialog>
 
 <!-- Start of profile dialog-->
@@ -368,31 +342,23 @@
 <paper-toast class="toast" id="videotoast" text="Teaser coming soon..."></paper-toast>
 <paper-toast class="toast" id="eventstoast" text="In Progress..."></paper-toast>
 
-<!-- Sound
-<audio id="beep-one" preload="auto">
-	<source src="audio/beep.mp3" controls></source>
-	<source src="audio/beep.ogg" controls></source>
-	Your browser isn't invited for super fun audio time.
-</audio>
-
-<script>
-  var beepOne = $("#beep-one")[0];
-  $(".nav")
-  	.click(function() {
-  		beepOne.play();
-  	});
-</script>
--->
-
 <!-- Animation of welcome message -->
 <script>
-document.getElementsByTagName("body")[0].style.visibility="visible";
-function animateGateways(){
-  $( document ).ready(function() {
-    $("#gateways").animate({ marginTop: "15px" }, 1000 )
-                  .animate({fontSize: '60px'}, 1000);
-    $("#clock").fadeOut(10)
-                     .fadeIn(9000);
-  });
-}
-  </script>
+  function animateGateways(){
+    document.getElementsByTagName("body")[0].style.visibility="visible";
+    document.getElementById("spin").style.visibility="hidden";
+    $( document ).ready(function() {
+      $("#gateways").animate({ marginTop: "15px" }, 1000 )
+                    .animate({fontSize: '60px'}, 1000);
+      $("#clock").fadeOut(10)
+                       .fadeIn(9000);
+    });
+  }
+
+  function pauseVideo(){
+      var vdiag=document.getElementById("videodialog");
+      vdiag.close();
+      var iframe = document.getElementById('myvideo');
+      iframe.src = iframe.src;
+    }
+</script>
