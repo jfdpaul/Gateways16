@@ -44,6 +44,25 @@ class db_connect{
       else
         return array("message"=>"no match") ;
     }
+
+    /*Function to return list of participants from a college in an event from event_participants table*/
+    public function get_event_participants_details_for_college($eId,$colId){
+
+      $sql = 'SELECT o_id,email, password FROM organizers where email=\''.$uname.'\'';
+
+      mysql_select_db( 'gateways' );
+      $retval = mysql_query( $sql, $this->conn );
+      if(! $retval ){
+       die('Could not get data: ' . mysql_error());
+      }
+
+      $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+      if($password == $row['password']){
+          return array("message"=>"match","id"=>$row['o_id']) ;
+        }
+      else
+        return array("message"=>"no match") ;
+    }
 }
 
 $db=new db_connect();

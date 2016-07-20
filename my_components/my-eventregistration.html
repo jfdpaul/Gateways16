@@ -2,13 +2,20 @@
   <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
   <link rel="import" href="my-teams.html">
   <template>
+    <!--
     <iron-ajax
         auto
         url="../data/event_details.json"
         handle-as="json"
         last-response="{{jsondata}}">
+    </iron-ajax>  -->
+    <iron-ajax
+        id="ajax"
+        auto
+        url=""
+        handle-as="json"
+        last-response="{{jsondata}}">
     </iron-ajax>
-
     <template is="dom-repeat" items="{{jsondata.events}}">
       <my-teams team="{{item}}"></my-teams>
     </template>
@@ -22,7 +29,19 @@
       jsondata:{
         type:Object,
         notify:true
+      },
+      eventid:{
+        type:Number,
+        value:2
+      },
+      collegeid:{
+        type:Number,
+        value:34
       }
+    },
+    ready:function(){
+      this.$.ajax.url="../libraries/getEventDetails.php?col_id="+this.collegeid+"&e_id="+this.eventid;
+      this.$.ajax.generateRequest();
     }
   });
 </script>

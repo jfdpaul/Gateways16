@@ -156,7 +156,7 @@
       <title>Gateways</title>
 
   </head>
-  <body>
+  <body onload="animateGateways();" style="visibility:hidden;">
 
     <!-- TOP MENU  -->
     <div id="first_view" style="background-image:url('images/back.jpg');">
@@ -368,7 +368,6 @@
 <paper-toast class="toast" id="videotoast" text="Teaser coming soon..."></paper-toast>
 <paper-toast class="toast" id="eventstoast" text="In Progress..."></paper-toast>
 
-
 <!-- Sound
 <audio id="beep-one" preload="auto">
 	<source src="audio/beep.mp3" controls></source>
@@ -387,10 +386,13 @@
 
 <!-- Animation of welcome message -->
 <script>
-$( document ).ready(function() {
-  $("#gateways").animate({ marginTop: "15px" }, 1000 )
-                .animate({fontSize: '60px'}, 1000);
-  $("#clock").fadeOut(10)
-                   .fadeIn(9000);
-});
+document.getElementsByTagName("body")[0].style.visibility="visible";
+function animateGateways(){
+  $( document ).ready(function() {
+    $("#gateways").animate({ marginTop: "15px" }, 1000 )
+                  .animate({fontSize: '60px'}, 1000);
+    $("#clock").fadeOut(10)
+                     .fadeIn(9000);
+  });
+}
   </script>
