@@ -2,7 +2,7 @@
   <head>
     <!-- Imports -->
     <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script  src="./jquery.min.js"></script>
     <link rel="import" href="./bower_components/polymer/polymer.html">
     <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
     <link rel="import" href="./bower_components/paper-item/paper-item.html">
@@ -16,8 +16,6 @@
     <link rel="import" href="./bower_components/iron-icons/communication-icons.html">
     <link rel="import" href="./bower_components/paper-spinner/paper-spinner.html">
     <link rel="import" href="./bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-    <link rel="import" href="./my_components/my-countdown/my-countdown.html">
-    <link rel="import" href="./my_components/my-console.html">
     <link rel="icon" type="image/png" href="./images/gateways-logo.png" />
 
     <!-- styles -->
@@ -45,14 +43,14 @@
         /**For background animation*/
         @keyframes animatedBackground {
         	from { background-position: 0 0; }
-        	to { background-position: 100% 0; }
+        	to { background-position: 100% 100%; }
         }
 
         /**animate background*/
         #first_view	{
-        	background-position: 0px 0px;
-        	background-repeat: repeat-x;
-        	animation: animatedBackground 50s linear infinite;
+        	/*background-position: 0px 0px;
+        	background-repeat: repeat-y;
+*/        	animation: animatedBackground 30s linear infinite;
         }
 
         /**Navigation menu*/
@@ -119,6 +117,7 @@
           top:100px;
           left:-7px
         }
+
         #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
           left:-110px;
         }
@@ -138,7 +137,7 @@
       <title>Gateways</title>
 
   </head>
-  <paper-spinner id="spin" active style="position:absolute;left:40%;top:20%;width:300px;height:300px;visibility:visible"></paper-spinner>
+  <paper-spinner id="spin" active style="position:fixed;left:40%;top:20%;width:300px;height:300px;visibility:visible"></paper-spinner>
   <body onload="animateGateways();" style="visibility:hidden;">
     <div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'
     style="position:fixed;right:10px;bottom:40px;background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:9990;"></div>
@@ -180,7 +179,7 @@
 
         <center class="white">
           <?php
-            date_default_timezone_set('India/Kolkata');
+            //date_default_timezone_set('India/Kolkata');
             $date=mktime(0, 0, 0, 8, 15, 2016);  //from 15 August 2016 00:00:00 am
           ?>
 
@@ -347,12 +346,12 @@
   function animateGateways(){
     document.getElementsByTagName("body")[0].style.visibility="visible";
     document.getElementById("spin").style.visibility="hidden";
-    $( document ).ready(function() {
+    //$( document ).ready(function() {
       $("#gateways").animate({ marginTop: "15px" }, 1000 )
                     .animate({fontSize: '60px'}, 1000);
       $("#clock").fadeOut(10)
                        .fadeIn(9000);
-    });
+    //});
   }
 
   function pauseVideo(){
