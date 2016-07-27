@@ -1,6 +1,17 @@
 <html>
+  <?php
+    $dbhost = 'localhost';
+    $dbuser = 'root';
+    $dbpass = 'root';
+    $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
+    mysql_select_db( 'gateways' );
+    $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
+    $retval = mysql_query( $sql, $conn );
+  ?>
   <head>
     <!-- Imports -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <script  src="./jquery.min.js"></script>
     <link rel="import" href="./bower_components/polymer/polymer.html">
@@ -21,6 +32,9 @@
     <!-- styles -->
 
     <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+      }
       /**Overall scrollbars*/
         html {
           overflow-y: scroll;
@@ -50,7 +64,7 @@
         #first_view	{
         	/*background-position: 0px 0px;
         	background-repeat: repeat-y;
-*/        	animation: animatedBackground 30s linear infinite;
+*/        	animation: animatedBackground 60s linear infinite;
         }
 
         /**Navigation menu*/
@@ -60,6 +74,7 @@
         }
 
         .anchor{
+          font-family: 'Roboto', sans-serif;
           text-decoration:none;
           color:white;
         }
@@ -139,8 +154,8 @@
   </head>
   <paper-spinner id="spin" active style="position:fixed;left:40%;top:20%;width:300px;height:300px;visibility:visible"></paper-spinner>
   <body onload="animateGateways();" style="visibility:hidden;">
-    <div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'
-    style="position:fixed;right:10px;bottom:40px;background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:9990;"></div>
+    <a href="#"><div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'
+    style="position:fixed;right:10px;bottom:40px;background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:9990;"></div></a>
     <!-- TOP MENU  -->
     <div id="first_view" style="background-image:url('images/back.jpg');">
       <div id="top_menu" class="container flex-horizontal">
@@ -150,10 +165,11 @@
             <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#video"><paper-item onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
           </iron-selector>
         </div>
-        <div style="background-image: url('./images/christ.png');  min-width:300px;min-height:200px;background-size: 300px; background-repeat:no-repeat;float:right"></div>
+        <div style="background-image: url('./images/christ-logo.png');  min-width:300px;min-height:200px;background-size: 300px; background-repeat:no-repeat;float:right;padding-right:5px;padding-left:15px"></div>
         <div class="flexchild" style="display:block;float:right;margin-top:50px;">
           <iron-selector selected="0" style="display:block">
             <div class="nav"><a class="anchor" href="#login"><paper-item onclick="logintoast.open()"><paper-ripple></paper-ripple>Login</paper-item></a></div>
@@ -171,7 +187,12 @@
              <b>
                <p style="font-size:16px">PRESENTS</p>
                <br>
-               <p id="gateways" style="font-size:25px; font-family:custom-font">GATEWAYS 2016</p>
+               <center>
+                 <div style="display:inline-block">
+                   <p id="gateways" style="font-size:25px; font-family:custom-font">GATEWAYS '16</p>
+                   <p style="float:right;font-size:18px;font-family: 'Dancing Script', cursive;">Redefining the defined...</p>
+                 </div>
+              </center>
              </b>
              <br>
              <p style="font-size:20px">6th and 7th September</p>
@@ -262,6 +283,19 @@
         <div  id="connector" style="min-height:80px;width:80%;margin-left:9%;position:absolute;top:-40px;background:#FFF;z-index:-2;">
         </div>
         <div style="position:relative;">
+          <span style="font-size:30px;position:absolute;left:20px;padding:5px;color:white;background:#007Daf;border-radius:3px;"><b>
+            <?php
+              $dbhost = 'localhost';
+              $dbuser = 'root';
+              $dbpass = 'root';
+              $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gatewy');
+              mysql_select_db( 'gatewy' );
+              $sql="SELECT count(*) no from counter";
+              $retval = mysql_query( $sql, $conn );
+              $row=mysql_fetch_array($retval);
+              echo $row['no'].' views';
+            ?></b>
+          </span>
           <span>
             <style is="custom-style">
             .big {
@@ -277,7 +311,7 @@
         </span>
       </div>
       <span style="padding-left:20px">
-        <b style="font-size:15px">&copy Gateways 2016</b><br>
+        <b style="font-size:15px;padding-bottom:5px;">&copy Gateways 2016</b><br>
         <div style="float:right;display:inline-block;padding:10px;background:rgba(0,0,0,0.8);color:#FFF">Check our Facebook page for pre-fest events to win exciting prizes</div>
         <div style="float:left;display:inline-block;padding:10px;background:rgba(200,200,200,0.8);color:#000">Works best on Google Chrome</div>
       </span>
@@ -285,9 +319,15 @@
   </body>
 </html>
 
+<!--Video Dialog -->
 <paper-dialog id="videodialog" modal>
   <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseVideo()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
   <iframe id="myvideo" width="850" height="500" src="https://www.youtube.com/embed/WdWja6Y7blc" frameborder="0" allowfullscreen></iframe>
+</paper-dialog>
+<!--Poster Dialog -->
+<paper-dialog id="posterdialog" style="height:90%;">
+  <!--<div style="background-image: url('./images/poster.jpg');margin:auto;width:95%;height:100%; background-size:100% 100%"></div>-->
+  <img src="./images/poster.jpg" height="95%"/>
 </paper-dialog>
 
 <!-- Start of profile dialog-->
