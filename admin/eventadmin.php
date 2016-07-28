@@ -6,11 +6,12 @@
   <body>
     <div style="margin:auto;">
     <?php
-      if( $_SESSION['privilege']=='' && $_SESSION['e_id']==''){
+      if( $_SESSION['privilege']<5 && $_SESSION['e_id']==''){
         $_SESSION["message"]="Caughtcha";
         header('Location: ./index.php');
       }
       echo "<h2>Welcome Organizer - ".$_SESSION['event_name']." </h2>";
+      echo '<div><a href="./index.php" style="color:brown">Logout</a></div>';
     ?>
     <main>
             <!-- Display list of participants in event sorted by college and team -->

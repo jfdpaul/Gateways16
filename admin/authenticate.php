@@ -18,7 +18,7 @@
       }
       else if($_SESSION['privilege']==5){   //send to eventadmin.php page with e_id from events_organizers using o_id
 
-        $res=$db->get_organizer_details($uname,$password); //authenticate user and return message
+        $res=$db->get_organizer_details_for_uname_password($uname,$password); //authenticate user and return message
         if($res['message']=="success"){
           $_SESSION["e_id"]=$res["e_id"];
           $_SESSION["event_name"]=$res["event_name"];
