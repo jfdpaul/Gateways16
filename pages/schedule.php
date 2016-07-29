@@ -1,4 +1,8 @@
 <html>
+  <head>
+    <style>
+    </style>
+  </head>
   <body>
     <table border="4">
       <?php

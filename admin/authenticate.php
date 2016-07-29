@@ -23,7 +23,7 @@
           $_SESSION["e_id"]=$res["e_id"];
           $_SESSION["event_name"]=$res["event_name"];
         }
-        header('Location: ./eventadmin.php');
+        header('Location: ./eventadmin.php?e_id='.$_SESSION["e_id"]);
       }
     }
     else{   //redirect to login

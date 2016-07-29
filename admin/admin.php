@@ -14,9 +14,22 @@
   a {
     color:white;
     text-decoration: none;
+    padding : 2px;
   }
   </style>
 </head>
+
+<div style="float:right;background:#3a4c4d;">
+  <a href="./certificateadmin.php">Scores | </a>
+  <a href="#">Coordinator |</a>
+  <input id="event_id"><a href="#" onclick="goto_event()">GotoEvent</a>
+  <script>
+    function goto_event(){
+      var e_id=document.getElementById('event_id').value;
+      window.location='./eventadmin.php?e_id='+e_id;
+    }
+  </script>
+</div>
   <?php
     if( $_SESSION['privilege']==''||$_SESSION['privilege']<15){
       $_SESSION["message"]="Don't act smart";
@@ -25,7 +38,6 @@
     echo '<h2>Welcome ADMIN</h2>';
     echo '<div><a href="./index.php" style="color:brown">Logout</a></div>';
   ?>
-
   <div style="width:99%;float:left;background:#456;padding:4px">
     <div id="college_menu">
       <!--

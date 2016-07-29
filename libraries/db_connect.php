@@ -6,13 +6,6 @@ class db_connect{
     private $dbuser = 'root';
     private $dbpass = 'root';
     private $conn;
-    /*
-    function __constructor(){
-      $dbhost = 'localhost';
-      $dbuser = 'root';
-      $dbpass = 'root';
-    }
-    */
 
     public function connect(){
 
@@ -236,7 +229,7 @@ class db_connect{
         }
       }
 
-      //Function to show college details
+      //Function to show details of event table
       public function get_event_details(){
         $sql="SELECT * from events";
 
@@ -253,6 +246,42 @@ class db_connect{
           $count=$count+1;
         }
         return $rows;
+      }
+
+      //Function to show all event related details
+      public function get_event_organizers_n_rules_details(){
+        $sql="SELECT events.e_id,events.code_name,events.name e_name,description,start_time,end_time,venues.name v_name,organizers.name o_name from events,venues,organizers,events_organizers where events.e_id=events_organizers.e_id and events_organizers.o_id=organizers.o_id and venues.v_id=events.v_id";
+        mysql_select_db( 'gateways' );
+        $retval = mysql_query( $sql, $this->conn );
+        if(! $retval ){
+         die('Could not delete data: ' . mysql_error());
+       }
+       $rows=array();
+       $count=1;
+       while(($row = mysql_fetch_array($retval, MYSQL_ASSOC))!=null){
+         $rows=$rows+array($count=>$row);
+         $count=$count+1;
+       }
+
+       foreach($rows as $key=>$value){
+         //echo json_encode($value);
+         $sql="SELECT rule from rules where rules.e_id = ".$value['e_id'];
+         mysql_select_db( 'gateways' );
+         $retval = mysql_query( $sql, $this->conn );
+         if(! $retval ){
+          die('Could not delete data: ' . mysql_error());
+        }
+        $rule=array();
+        $count=1;
+        while(($row = mysql_fetch_array($retval, MYSQL_ASSOC))!=null){
+          $rule=$rule+array($count=>$row);
+          $count=$count+1;
+        }
+        $rows[$value['e_id']]=$rows[$value['e_id']]+array("rules"=>$rule);
+        //echo json_encode($value);
+      }
+       return $rows;
+
       }
 
       //Function to delete a college by its id
@@ -489,9 +518,24 @@ class db_connect{
       return $rows;
     }
 
+    /* Function to mark all participants in argument present for an event (e_id) */
+    public function mark_participant_present_for_e_id($e_id,$participant_array){
+
+      mysql_select_db( 'gateways' );
+
+      //for each participant_id add a new entry with t_id to teams table
+      for($i=0; $i<count($participant_array) ;$i=$i+1){
+        $sql="UPDATE teams,teams_events set teams.present = 1 where teams_events.e_id =$e_id and teams.p_id = $participant_array[$i]";
+        $retval = mysql_query( $sql, $this->conn );
+        if(! $retval ){
+         die('Could not insert data '.mysql_error());
+        }
+      }
+    }
+
 }// end of class
 
 $db=new db_connect();
 $db->connect();
-//echo $db->get_event_score_details_for_id(1);
+//echo $db->get_event_organizers_n_rules_details();
 ?>

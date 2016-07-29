@@ -6,8 +6,8 @@
   <body>
     <div style="margin:auto;">
     <?php
-      if( $_SESSION['privilege']<5 && $_SESSION['e_id']==''){
-        $_SESSION["message"]="Caughtcha";
+      if( $_SESSION['privilege']<5 && $_REQUEST['e_id']==''){
+        $_SESSION["message"]="Unauthorised Access Denied";
         header('Location: ./index.php');
       }
       echo "<h2>Welcome Organizer - ".$_SESSION['event_name']." </h2>";
@@ -20,14 +20,15 @@
         <hr>
         <table>
           <tr>
-            <td>P_ID</td><td>Name</td><td>Team#</td><td>College</td><td>Score</td>
+            <td>Present</td><td>P_ID</td><td>Name</td><td>Team#</td><td>College</td><td>Score</td>
           </tr>
 
         <?php
             require_once('../libraries/db_connect.php');
-            $res=$db->get_participants_for_event_id($_SESSION['e_id']);
+            $res=$db->get_participants_for_event_id($_REQUEST['e_id']);
             foreach($res as $key => $value){
               echo "<tr>";
+              echo "<td><input type='checkbox' name='participant_id' value='".$value['p_id']."'</td>";
               echo "<td>".$value['p_id']."</td>";
               echo "<td>".$value['first_name']." ".$value['last_name']."</td>";
               echo "<td>".$value['t_id']."</td>";
@@ -36,7 +37,8 @@
               echo "</tr>";
             }
          ?>
-       </table>
+       </table><br>
+       <button id="mark_present">Mark Present</button>
       </div>
 
       <!-- Block to register teams -->
@@ -47,7 +49,7 @@
           <input type="hidden" id="participant_count" value="0">
           <button id="add_button">+</button>
         </div>
-        <input id="e_id" type="hidden" value="<?php echo $_SESSION['e_id']?>">
+        <input id="e_id" type="hidden" value="<?php echo $_REQUEST['e_id']?>">
         <button id="add_team_button">Add Team</button>
         <div id="insert_message"></div>
       </div>
@@ -57,8 +59,8 @@
         <h2>Set Score</h2>
         <hr>
         <div id="score_holder">
-          <input placeholder="Team ID" id="teamID">
-          <input placeholder="score" id="scoreValue">
+          <input placeholder="Team ID" id="teamID"><br>
+          <input placeholder="score" id="scoreValue"><br>
           <button id="scoreButton">Save</button>
           <div id="score_message"></div>
         </div>
@@ -117,5 +119,18 @@
      $("#score_message").load('../libraries/add_score_for_tid.php', {"score":scoreval,"t_id":t_id} );
      location.reload();
    });
+
+    //function to load asynchronously, details of a participant's events
+    $("#mark_present").click(function(event){
+      var p_array=[];
+      var e_id=$("#e_id").val();
+      var checkboxes= document.getElementsByName('participant_id');
+      for (var i=0, n=checkboxes.length,j=0;i<n;i++){
+          if (checkboxes[i].checked){
+              p_array[j++] =checkboxes[i].value;
+          }
+      }
+      $("#insert_message").load('../libraries/mark_present.php', {"p_array":p_array,"event_id":e_id} );
+    });
  });
 </script>

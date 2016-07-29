@@ -50,7 +50,7 @@ CREATE TABLE `counter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `counter` (
 
 LOCK TABLES `counter` WRITE;
 /*!40000 ALTER TABLE `counter` DISABLE KEYS */;
-INSERT INTO `counter` VALUES (30,'2016-07-25 05:50:45'),(31,'2016-07-26 04:24:29'),(32,'2016-07-26 04:24:47'),(33,'2016-07-26 02:57:32'),(34,'2016-07-26 04:05:32'),(35,'2016-07-27 06:52:32'),(36,'2016-07-27 08:45:29'),(37,'2016-07-27 08:58:29'),(38,'2016-07-27 08:58:58'),(39,'2016-07-27 08:59:12');
+INSERT INTO `counter` VALUES (30,'2016-07-25 05:50:45'),(31,'2016-07-26 04:24:29'),(32,'2016-07-26 04:24:47'),(33,'2016-07-26 02:57:32'),(34,'2016-07-26 04:05:32'),(35,'2016-07-27 06:52:32'),(36,'2016-07-27 08:45:29'),(37,'2016-07-27 08:58:29'),(38,'2016-07-27 08:58:58'),(39,'2016-07-27 08:59:12'),(40,'2016-07-29 08:13:36'),(41,'2016-07-29 08:13:51'),(42,'2016-07-29 08:45:33'),(43,'2016-07-29 08:47:45');
 /*!40000 ALTER TABLE `counter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,6 +76,8 @@ CREATE TABLE `events` (
   `description` varchar(100) DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
+  `v_id` int(11) DEFAULT NULL,
+  `code_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`e_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -86,7 +88,7 @@ CREATE TABLE `events` (
 
 LOCK TABLES `events` WRITE;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'IT manager','IT ','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'Quiz','Doubt','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `events` VALUES (1,'IT manager','IT ','0000-00-00 00:00:00','0000-00-00 00:00:00',1,'itmanager'),(2,'Quiz','Doubt','0000-00-00 00:00:00','0000-00-00 00:00:00',2,'quiz');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +111,7 @@ CREATE TABLE `events_organizers` (
 
 LOCK TABLES `events_organizers` WRITE;
 /*!40000 ALTER TABLE `events_organizers` DISABLE KEYS */;
-INSERT INTO `events_organizers` VALUES (1,2);
+INSERT INTO `events_organizers` VALUES (1,2),(2,3);
 /*!40000 ALTER TABLE `events_organizers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +131,7 @@ CREATE TABLE `organizers` (
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`o_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +140,7 @@ CREATE TABLE `organizers` (
 
 LOCK TABLES `organizers` WRITE;
 /*!40000 ALTER TABLE `organizers` DISABLE KEYS */;
-INSERT INTO `organizers` VALUES (1,'Jonathan Paul','9876543210',15,'jfdpaul@gmail.com','admin','123'),(2,'Alan George','9876543210',5,'alan.george@mca.christuniversity.in','itmanager','123');
+INSERT INTO `organizers` VALUES (1,'Jonathan Paul','9876543210',15,'jfdpaul@gmail.com','admin','123'),(2,'Alan George','9876543210',5,'alan.george@mca.christuniversity.in','itmanager','123'),(3,'Akshay Santhanam','9876543210',5,'ak@gmail.com','quiz','123');
 /*!40000 ALTER TABLE `organizers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,6 +173,31 @@ INSERT INTO `participants` VALUES (1,'Alna','Geor','alna@gmail.com','9879879870'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rules`
+--
+
+DROP TABLE IF EXISTS `rules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rules` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rule` varchar(200) DEFAULT NULL,
+  `e_id` int(2) DEFAULT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rules`
+--
+
+LOCK TABLES `rules` WRITE;
+/*!40000 ALTER TABLE `rules` DISABLE KEYS */;
+INSERT INTO `rules` VALUES (1,'No Laptops Required',2),(2,'No Laptops Required',1),(3,'Internet Prohibited',2);
+/*!40000 ALTER TABLE `rules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `teams`
 --
 
@@ -179,7 +206,8 @@ DROP TABLE IF EXISTS `teams`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `teams` (
   `t_id` int(11) DEFAULT NULL,
-  `p_id` int(11) DEFAULT NULL
+  `p_id` int(11) DEFAULT NULL,
+  `present` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -189,7 +217,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (0,1),(0,6),(1,1),(2,6),(2,7);
+INSERT INTO `teams` VALUES (0,1,1),(0,6,1),(1,1,1),(2,6,1),(2,7,1);
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,6 +245,30 @@ LOCK TABLES `teams_events` WRITE;
 INSERT INTO `teams_events` VALUES (1,1,0),(2,1,50);
 /*!40000 ALTER TABLE `teams_events` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `venues`
+--
+
+DROP TABLE IF EXISTS `venues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venues` (
+  `v_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`v_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venues`
+--
+
+LOCK TABLES `venues` WRITE;
+/*!40000 ALTER TABLE `venues` DISABLE KEYS */;
+INSERT INTO `venues` VALUES (1,'Room 811 (Central Block)'),(2,'Room 810 (Central Block)');
+/*!40000 ALTER TABLE `venues` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -227,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-28 20:06:49
+-- Dump completed on 2016-07-29 14:21:48

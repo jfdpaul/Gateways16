@@ -1,6 +1,6 @@
 <html>
   <head>
-
+    <link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
     <style>
       .event_block{
@@ -52,18 +52,15 @@
     <center>
     <div id="event_holder">
     <?php
-      $events=array("quiz"=>array("name"=>"Quiz","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),"web"=>array("name"=>"Web","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),
+      require_once('../libraries/db_connect.php');
+      $events=$db->get_event_organizers_n_rules_details();
+      /*$events=array("quiz"=>array("name"=>"Quiz","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),"web"=>array("name"=>"Web","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),
       "itmanager"=>array("name"=>"IT Manager","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")));
-
+*/
       foreach ($events as $key => $value) {
         ?>
-        <div style="" class="event_block" onclick="<?php echo $key?>dialog.open()">
-          <span><?php echo $value['name']?></span>
-          <article>
-            <?php
-              echo $value["description"];
-            ?>
-          </article>
+        <div style="" class="event_block" onclick="event<?php echo $key?>dialog.open()">
+          <span><?php echo $value['e_name']?></span>
         </div>
         <?php
       }
@@ -74,17 +71,25 @@
 <?php
 foreach ($events as $key => $value) {
 ?>
-<paper-dialog id="<?php echo $key?>dialog" style="height:80%;width:80%;">
-  <!--<img src="../images/poster.jpg" height="95%"/>-->
+<paper-dialog id="event<?php echo $key?>dialog" style="height:80%;width:80%;">
+  <img src="../images/<?php echo value['code_name']?>.jpg" height="45%" width="95%"/>
+  <paper-dialog-scrollable>
   <div id="rules">
+
+    <article>
+      <?php
+        echo $value["description"];
+      ?>
+    </article>
     <ul>
       <?php
         foreach($value["rules"] as $key => $value){
-          echo "<li>".$value."</li>";
+          echo "<li>".$value['rule']."</li>";
         }
       ?>
     </ul>
   </div>
+</paper-dialog-scrollable>
 </paper-dialog>
 <?php
 }
