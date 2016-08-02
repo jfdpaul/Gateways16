@@ -8,20 +8,18 @@
 
   <template>
 
-      <style is="custom-style">
 
+      <style is="custom-style">
         :host{
           z-index:9999;
-          padding:5px;
+          padding:15px;
           margin:3px;
-          position:absolute;
+          position:fixed;
           bottom:0px;
-          right:0px;
+          left:0px;
           display:block;
           background:#111;
           border:2px solid black;
-          width:500px;
-          height:200px;
         }
         ::-webkit-scrollbar {
             display: none;
@@ -31,14 +29,14 @@
           --paper-input-container-color:111;
           --paper-input-container-input-color:white;
           color:white;
-          width:400px;
-          display:inline-block;
+
+          display:inline;
         }
       </style>
 
     <div id="container">
       <iron-a11y-keys id="a11y" target="[[target]]" keys="enter" on-keys-pressed ="onEnter"></iron-a11y-keys>
-      <paper-textarea id="history" value="{{ pastdata::input }}" no-label-float max-rows="7" readonly></paper-textarea>
+      <paper-textarea id="history" value="{{ pastdata::input }}" no-label-float max-rows="25" readonly></paper-textarea>
       <paper-input id="input1" style="position:relative;top:-15px"  no-label-float value="{{ userInput::input }}">
         <div prefix > {{ path }} # &nbsp</div>
       </paper-input>
@@ -59,10 +57,15 @@
         type:String,
         value:'[gateways]'
       },
+      entryMsg:{
+        type:String,
+        notify:true,
+        value:"*** Welcome to Gateways 2016 *** \nThis terminal is your CLI to the entire website.\n<commands> : help, gateways, clear, contacts, events, exit"
+      },
       pastdata:{
         type:String,
         notify:true,
-        value:"*** Welcome to Gateways 2016 *** \nThis terminal is your CLI in the entire website.\n<commands> : help, video, about, contacts, exit"
+        value:"*** Welcome to Gateways 2016 *** \nThis terminal is your CLI to the entire website.\n<commands> : help, gateways, clear, contacts, events, exit"
       },
       target: {
         type: Object,
@@ -75,18 +78,100 @@
     clearConsole : function(){
       this.pastdata="";
     },
+
     onEnter: function() {
 
-      if(this.userInput!="")
-        this.pastdata=this.pastdata+'\n'+this.path+" #"+this.userInput;
-
-      if(this.userInput==="clear"){
+      switch(this.userInput){
+        case "":this.pastdata=this.pastdata+'\n'+this.path+" #"+this.userInput;
+          break;
+        case "clear":this.clearConsole();
+          break;
+        case "help":
+          var msg='\n._._._._._._._._._._._._._._._._\n';
+          msg=msg+'Commands: \n1. clear\n2. exit\n3. gateways\n-version\t-date\t-theme';
+          msg=msg+'\n\n4. events\n';
+          msg=msg+"\n._._._._._._._._._._._._._._._._\n\n";
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+msg;
+          break;
+        case "exit":this.style.visibility="hidden";
           this.clearConsole();
+          this.pastdata=this.entryMsg;
+          break;
+        case "gateways -version":
+          this.pastdata=this.pastdata+'\n'+this.userInput+"\nGateways '16 version 20\n";
+          break;
+        case "gateways -date":
+          this.pastdata=this.pastdata+'\n'+this.userInput+"\n6th and 7th September 2016\n";
+          break;
+        case "gateways -theme":
+          this.pastdata=this.pastdata+'\n'+this.userInput+"\nMOBIUX - Modular Technology, Building Blocks, AI\n";
+          break;
+        case "events":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\nerror... use options : \n'+' -coding\n -webdesigning\n -itmanager\n -itquiz\n -jam\n -gaming\n-postermaking\n -videomaking\n -photography\n -greenart\n -dumbcharades\n -treasurehunt\n -productlaunch\n -mockparliament\n';
+          break;
+        case "events -coding":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nCoding and Debugging\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -webdesigning":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nWeb Designing\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -itmanager":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nIT Manager\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -jam":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nJAM\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -gaming":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nGaming\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -postermaking":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nPoster Making\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -videomaking":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nVideo Making\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -photography":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nPhotography\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -greenart":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nGreen Art\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -dumbcharades":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nDumb Charades\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -treasurehunt":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nTreasure Hunt\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -productlaunch":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nProduct Launch\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -mockparliament":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nMock Parliament\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "events -itquiz":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n'+'._._._._._._._._._._._._._._._._\nIT Quiz\nDate : 6/9/16 \t\tTime : 2-4pm\nDate : 7/9/16 \t\tTime : 9-11am || 11am-1pm\nVenue : LAB - B\n._._._._._._._._._._._._._._._._\n';
+          break;
+        case "contacts":
+          this.pastdata=this.pastdata+'\n'+this.userInput+'\n._._._._._._._._._._._._._._._._._._._._\n'+' - Sussan Elias \t: 8095510370 \n - Jerrin James \t: 968653042\n - Namita Gupta \t: 7406435312 \n - Karanjit Tiwana \t: 9663661306'+'\n._._._._._._._._._._._._._._._._._._._._\n';
+          break;
+        default:this.pastdata=this.pastdata+'\ngateways: '+this.userInput+' command not found... type "help" to get list';
+          break;
+      }
+      /*
+
+      if(this.userInput!=""){
+        this.pastdata=this.pastdata+'\n'+this.path+" #"+this.userInput;
+      }
+
+      if(this.userInput==='clear'){
+        this.clearConsole();
       }
       else{
         this.pastdata=this.pastdata+'\ngateways: '+this.userInput+' command not found...';
       }
+      */
       this.userInput="";
+
       $(document).ready(function(){
         $("#history textarea").scrollTop(9999);
       });

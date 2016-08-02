@@ -26,6 +26,7 @@
     <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="./bower_components/iron-icons/communication-icons.html">
     <link rel="import" href="./bower_components/paper-spinner/paper-spinner.html">
+    <link rel="import" href="./my_components/my-console.html">
     <link rel="import" href="./bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="icon" type="image/png" href="./images/gateways-logo.png" />
 
@@ -33,19 +34,20 @@
 
     <style>
       * {
-        font-family: 'Roboto', sans-serif;
-      }
+          font-family: 'Roboto', sans-serif;
+        }
       /**Overall scrollbars*/
         html {
           overflow-y: scroll;
           overflow-x: hidden;
         }
+
         body::-webkit-scrollbar {
           width: 3px;  /* remove scrollbar space */
           background: transparent;  /* optional: just make scrollbar invisible */
         }
         /* optional: show position indicator in red */
-          body::-webkit-scrollbar-thumb {
+        body::-webkit-scrollbar-thumb {
           background: #FF00FF;
         }
 
@@ -60,12 +62,6 @@
         	to { background-position: 100% 100%; }
         }
 
-        /**animate background*/
-        #first_view	{
-        	/*background-position: 0px 0px;
-        	background-repeat: repeat-y;
-*/        	animation: animatedBackground 60s linear infinite;
-        }
 
         /**Navigation menu*/
         .nav{
@@ -83,25 +79,6 @@
           color:white;
         }
 
-        #flex{
-          position:relative;
-          top:-50px;
-        }
-
-        #main-flex{
-        height:40%;
-        }
-
-        #main-flex p{
-        text-align: center;
-        margin:0px;
-        }
-
-        body{
-          min-width: 600px;
-          background-color: #111122;
-        }
-
         .toast{
           left:0px;
           bottom:200px;
@@ -110,38 +87,498 @@
           color:#FFF;
         }
 
-        .profile{
-          margin:10px;
-          margin-left: 50px;
-          margin-right: 50px;
-          border: 3px solid rgba(0,0,0,0.9);
-          border-radius: 100px;
-          background-size: 100px 100px;
-          background-repeat: no-repeat;
-          min-width:100px;
-          min-height:100px;
-          display:inline-block;
+        body{
+          /*min-width: 600px;*/
+          background-color: #111122;
         }
 
-        .dropdown-content{
-          color:white;
-          background:#007daf;
-          border:2px solid black;
-          padding:5px;
-          position:relative;
-          top:100px;
-          left:-7px
+        @media only screen and (min-width:810px){
+
+          .profile{
+            margin:10px;
+            margin-left: 50px;
+            margin-right: 50px;
+            border: 3px solid rgba(0,0,0,0.9);
+            border-radius: 100px;
+            background-size: 100px 100px;
+            background-repeat: no-repeat;
+            min-width:100px;
+            min-height:100px;
+            display:inline-block;
+          }
+
+          .dropdown-content{
+            color:white;
+            background:#007daf;
+            border:2px solid black;
+            padding:5px;
+            position:relative;
+            top:100px;
+            left:-7px
+          }
+
+          #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
+            left:-110px;
+          }
+
+          #spin{
+            position:fixed;
+            left:35%;
+            top:20%;
+            width:300px;
+            height:300px;
+            visibility:visible
+          }
+
+          #gigaboy{
+            position:fixed;
+            right:10px;
+            bottom:40px;
+            background-image:url('./images/mascot.png');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            min-height:350px;
+            min-width:320px;
+            display:inline-block;
+            z-index:9990;
+          }
+
+          /**animate background*/
+          #first_view	{
+            background-image:url('images/back.jpg');
+          	animation: animatedBackground 60s linear infinite;
+          }
+
+          #gatewaysLogo{
+            background-image: url('./images/gateways-logo-white.png');
+            min-width:250px;
+            min-height:200px;
+            background-size: 200px ;
+            background-repeat:no-repeat;
+          }
+
+          #christLogo{
+            background-image: url('./images/christ-logo.png');
+            min-width:300px;
+            min-height:200px;
+            background-size: 300px;
+            background-repeat:no-repeat;
+            float:right;
+            padding-right:5px;
+            padding-left:15px;
+          }
+
+          .nav_links{
+            font-size: 18px;
+            padding:5px;
+          }
+
+          #flex{
+            position:relative;
+            top:-50px;
+            clear:both;
+          }
+
+          #main-flex{
+          height:40%;
+          }
+
+          #main-flex p{
+          text-align: center;
+          margin:0px;
+          }
+
+          #registration-date{
+            font-size:25px;
+          }
+
+          #department_of_cs{
+            font-size:18px;
+          }
+
+          #presents{
+            font-size: 20px;
+          }
+
+          #gateways{
+            font-size:25px;
+            font-family:custom-font;
+          }
+
+          #tag_line{
+            float:right;
+            font-size:18px;
+            font-family: 'Dancing Script', cursive;
+          }
+
+          #about_holder{
+            background:#F2F2F2;
+            color:#000;
+            height:100%;
+            width:80%;
+            margin:auto;
+            position:relative;
+            top:-50px;
+            z-index:1;
+            display:block;
+            position:relative;
+          }
+
+          #about{
+            padding-top:1%;
+            padding-right:100px;
+            padding-left:100px;
+            opacity:0.8;
+            text-align:justify;
+          }
+
+          #about_header{
+            font-size:40px;
+          }
+
+          #about_fest_description{
+            display:inline-block;
+            font-size:15px;
+            max-width:40%;
+            padding:4px;
+            padding-left:15px;
+          }
+
+          #fest_header{
+            position:relative;
+            top:-15px;
+            font-size:25px;
+          }
+
+          #about_theme_description{
+            display:inline-block;
+            font-size:15px;
+            max-width:40%;
+            float:right;
+            padding:4px;
+            padding-right:15px;
+            position:relative;
+            top:-11px;
+          }
+
+          #mobiux_logo{
+            background-image:url('./images/mobiux.png');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            z-index:3;
+            min-height:50px;
+            min-width:85px;
+            display:inline-block;
+          }
+
+          #about_background{
+            position:absolute;
+            background-image:url('./images/blocks.jpg');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            min-width:100%;
+            min-height:500px;
+            bottom:-90px;
+            z-index:-1;
+          }
+
+          footer{
+            text-align:center;
+            background:#FFF;
+            padding:10px;
+            height:100px;
+            position:relative;
+            box-shadow: 0px -5px 5px #555;
+
+          }
+          #connector{
+            min-height:80px;
+            width:80%;
+            margin-left:9%;
+            position:absolute;
+            top:-40px;
+            background:#FFF;
+            z-index:-2;
+          }
+
+          #views{
+            font-size:30px;
+            position:absolute;
+            left:20px;
+            padding:5px;
+            color:white;
+            background:#007Daf;
+            border-radius:3px;
+          }
+
+          #mail_icon{
+            text-decoration:none;
+            color:#000;
+          }
+
+          #gateways_copyright{
+            font-size:15px;
+            padding-bottom:5px;
+          }
+
+          #footer_right{
+            font-size: 15px;
+            float:right;
+            display:inline-block;
+            padding:10px;
+            background:rgba(0,0,0,0.8);
+            color:#FFF;
+          }
+
+          #footer_left{
+            font-size: 15px;
+            float:left;
+            display:inline-block;
+            padding:10px;
+            background:rgba(200,200,200,0.8);
+            color:#000;
+          }
         }
 
-        #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
-          left:-110px;
-        }
+        @media only screen and (max-width:810px){
 
-        @media only screen and (min-width:800px){
+          .profile{
+            margin:1px;
+            margin-left: 30px;
+            margin-right: 30px;
+            border: 3px solid rgba(0,0,0,0.9);
+            border-radius: 100px;
+            background-size: 100px 100px;
+            background-repeat: no-repeat;
+            min-width:100px;
+            min-height:100px;
+            display:inline-block;
+          }
 
-        }
-        @media only screen and (max-width:850px){
+          .dropdown-content{
+            color:white;
+            background:#007daf;
+            border:2px solid black;
+            padding:5px;
+            position:relative;
+            top:100px;
+            left:-7px
+          }
 
+          #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
+            left:-110px;
+          }
+
+          #spin{
+            position:fixed;
+            left:35%;
+            top:20%;
+            width:300px;
+            height:300px;
+            visibility:visible
+          }
+
+          #gigaboy{
+            position:fixed;
+            right:2px;
+            bottom:10px;
+            background-image:url('./images/mascot.png');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            min-height:200px;
+            min-width:150px;
+            display:inline-block;
+            z-index:9990;
+          }
+
+          /**animate background*/
+          #first_view	{
+            background-image:url('images/back.jpg');
+            animation: animatedBackground 60s linear infinite;
+          }
+
+          #gatewaysLogo{
+            background-image: url('./images/gateways-logo-white.png');
+            min-width:160px;
+            min-height:130px;
+            background-size: 130px ;
+            background-repeat:no-repeat;
+          }
+
+          #christLogo{
+            background-image: url('./images/christ-logo.png');
+            min-width:200px;
+            min-height:180px;
+            background-size: 200px;
+            background-repeat:no-repeat;
+            float:right;
+            padding-right:1px;
+            padding-left:5px;
+          }
+
+          .nav_links{
+            font-size: 10px;
+            padding:2px;
+          }
+
+          #flex{
+            position:relative;
+            top:  10px;
+            clear:both;
+          }
+
+          #main-flex{
+          height:40%;
+          }
+
+          #main-flex p{
+          text-align: center;
+          margin:0px;
+          }
+
+          #registration-date{
+            font-size:12px;
+          }
+
+          #department_of_cs{
+            font-size:9px;
+          }
+
+          #presents{
+            font-size: 10px;
+          }
+
+          #gateways{
+            font-size:15px;
+            font-family:custom-font;
+          }
+
+          #tag_line{
+            float:right;
+            font-size:8px;
+            font-family: 'Dancing Script', cursive;
+          }
+
+          #about_holder{
+            background:#F2F2F2;
+            color:#000;
+            height:100%;
+            width:80%;
+            margin:auto;
+            position:relative;
+            top:-20px;
+            z-index:1;
+            display:block;
+            position:relative;
+          }
+
+          #about{
+            padding-top:1%;
+            padding-right:100px;
+            padding-left:100px;
+            opacity:0.8;
+            text-align:justify;
+          }
+
+          #about_header{
+            font-size:25px;
+          }
+
+          #about_fest_description{
+            display:inline-block;
+            font-size:10px;
+            max-width:40%;
+            padding:2px;
+            padding-left:10px;
+          }
+
+          #fest_header{
+            position:relative;
+            top:-10px;
+            font-size:15px;
+          }
+
+          #about_theme_description{
+            display:inline-block;
+            font-size:15px;
+            max-width:40%;
+            float:right;
+            padding:4px;
+            padding-right:15px;
+            position:relative;
+            top:-11px;
+          }
+
+          #mobiux_logo{
+            background-image:url('./images/mobiux.png');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            z-index:3;
+            min-height:30px;
+            min-width:50px;
+            display:inline-block;
+          }
+
+          #about_background{
+            position:absolute;
+            background-image:url('./images/blocks.jpg');
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            min-width:100%;
+            min-height:200px;
+            bottom:-90px;
+            z-index:-1;
+          }
+
+          footer{
+            text-align:center;
+            background:#FFF;
+            padding:10px;
+            height:100px;
+            position:relative;
+            top:80px;
+            box-shadow: 0px -5px 5px #555;
+
+          }
+
+          #views{
+            font-size:20px;
+            position:absolute;
+            left:20px;
+            padding:5px;
+            color:white;
+            background:#007Daf;
+            border-radius:3px;
+          }
+
+          #mail_icon{
+            text-decoration:none;
+            color:#000;
+          }
+
+          #gateways_copyright{
+            font-size:10px;
+            padding-bottom:5px;
+          }
+
+          #footer_right{
+            font-size: 5px;
+            float:right;
+            display:inline-block;
+            padding:10px;
+            background:rgba(0,0,0,0.8);
+            color:#FFF;
+          }
+
+          #footer_left{
+            font-size: 5px;
+            float:left;
+            display:inline-block;
+            padding:5px;
+            background:rgba(200,200,200,0.8);
+            color:#000;
+
+          }
         }
 
         .flex-horizontal > div{
@@ -152,45 +589,43 @@
       <title>Gateways</title>
 
   </head>
-  <paper-spinner id="spin" active style="position:fixed;left:40%;top:20%;width:300px;height:300px;visibility:visible"></paper-spinner>
+  <paper-spinner id="spin" active></paper-spinner>
   <body onload="animateGateways();" style="visibility:hidden;">
-    <a href="#"><div title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'
-    style="position:fixed;right:10px;bottom:40px;background-image:url('./images/mascot.png');background-repeat:no-repeat;background-size:100% 100%;min-height:250px;min-width:250px;display:inline-block;z-index:9990;"></div></a>
+    <a href="#mascot" onclick="toggleConsole();"><div id="gigaboy" title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'></div></a>
     <!-- TOP MENU  -->
-    <div id="first_view" style="background-image:url('images/back.jpg');">
+    <div id="first_view">
       <div id="top_menu" class="container flex-horizontal">
-        <div style="background-image: url('./images/gateways-logo-white.png'); min-width:250px;min-height:200px;background-size: 200px ; background-repeat:no-repeat"></div>
+        <div id="gatewaysLogo"></div>
         <div id="menu_items" class="flexchild" style="margin-top:50px">
           <iron-selector selected="0">
-            <div class="nav"><a class="anchor" href="#about"><paper-item><paper-ripple></paper-ripple>About</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#events"><paper-item onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#video"><paper-item onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#contact"><paper-item onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#about"  ><paper-item class="nav_links"><paper-ripple></paper-ripple>About</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#events" ><paper-item class="nav_links" onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#video"  ><paper-item class="nav_links" onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
           </iron-selector>
         </div>
-        <div style="background-image: url('./images/christ-logo.png');  min-width:300px;min-height:200px;background-size: 300px; background-repeat:no-repeat;float:right;padding-right:5px;padding-left:15px"></div>
+        <div id="christLogo"></div>
         <div class="flexchild" style="display:block;float:right;margin-top:50px;">
           <iron-selector selected="0" style="display:block">
-            <div class="nav"><a class="anchor" href="#login"><paper-item onclick="logintoast.open()"><paper-ripple></paper-ripple>Login</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#register"><paper-item onclick="registrationtoast.open()"><paper-ripple center></paper-ripple>Register</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#login"><paper-item class="nav_links" onclick="logintoast.open()"><paper-ripple></paper-ripple>Login</paper-item></a></div>
           </iron-selector>
         </div>
       </div>
       <!-- END OF MENU -->
 
       <!-- MAIN FLEX  -->
-      <div id="flex" style="clear:both;">
+      <div id="flex">
         <div id="main-flex" class="white">
-             <p style="font-size:18px">Department of Computer Science</p>
+             <p id="department_of_cs">Department of Computer Science</p>
              <br>
              <b>
-               <p style="font-size:16px">PRESENTS</p>
+               <p id="presents">PRESENTS</p>
                <br>
                <center>
                  <div style="display:inline-block">
-                   <p id="gateways" style="font-size:25px; font-family:custom-font">GATEWAYS '16</p>
-                   <p style="float:right;font-size:18px;font-family: 'Dancing Script', cursive;">Redefining the defined...</p>
+                   <p id="gateways">GATEWAYS '16</p>
+                   <p id="tag_line">Redefining the defined...</p>
                  </div>
               </center>
              </b>
@@ -214,6 +649,7 @@
                 background:#EEFFEE;
                 border-radius: : 60px;
                 margin:auto;
+
               }
               body .flip-clock-wrapper ul li a div div.inn, body .flip-clock-small-wrapper ul li a div div.inn {
                   color: #EEE;
@@ -244,18 +680,18 @@
           </div>
             <!-- Delete till here -->
           <!--<my-countdown endtime="<?php //echo date("U", $date); ?>" starttime="<?php //echo time()?>"></my-countdown>-->
-            <p id="registration-date" style="font-size:25px"><b>Registration starts from August 15, 2016</b></p>
+            <p id="registration-date"><b>Registration starts from August 15, 2016</b></p>
         </center>
       </div>
     </div>
     <!-- End of first_view -->
 
     <!-- ABOUT  -->
-    <article style="background:#F2F2F2;color:#000; height:100%;width:80%; margin:auto;position:relative;top:-50px;z-index:1;display:block;position:relative">
-      <div id="about" style="padding-top:1%;padding-right:100px;padding-left:100px;opacity:0.8;text-align:justify">
-        <h1 style="font-size:40px;">ABOUT</h1>
-          <div style="display:inline-block;font-size:15px;max-width:40%;padding:4px;padding-left:15px;">
-            <b style="position:relative;top:-15px;font-size:25px">FEST</b>
+    <article id="about_holder">
+      <div id="about">
+        <h1 id="about_header">ABOUT</h1>
+          <div id="about_fest_description">
+            <b id="fest_header">FEST</b>
               <p>Gateways is the national level inter-collegiate post graduate IT fest organized
               by the Department of Computer Science, Christ University.
               It provides the much needed exposure which is a prerequisite to survive in the IT industry.
@@ -266,30 +702,25 @@
               abreast with latest trends in technology and developing their organisational and soft skills.
             </p>
           </div>
-          <div style="display:inline-block;font-size:15px;max-width:40%;float:right;padding:4px;padding-right:15px;position:relative;top:-11px;">
-            <div  style="background-image:url('./images/mobiux.png');background-repeat:no-repeat;background-size:100% 100%;z-index:3;min-height:50px;min-width:85px;display:inline-block"></div>
+          <div id="about_theme_description">
+            <div  id="mobiux_logo"></div>
             <p>This Gateways, MOBIUX - an acronym for Modular Building Blocks and AI, has been selected as the theme to drive the fest.
             Be it Google's project ARA and Arduino boards in hardware, or Web Components and Web API in software,
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
         </div>
-        <div style="position:absolute;background-image:url('./images/blocks.jpg');background-repeat:no-repeat;background-size:100% 100%;min-width:100%;min-height:500px;bottom:-90px;z-index:-1"></div>
+        <div id="about_background"></div>
     </article>
-    <article style="padding:30px;font-size:50px;background-color:#007Daf;color:white;min-height:100px;text-align:center;position:relative;top:-50px;z-index:10;box-shadow: 2px 8px 2px #aaaaaa;">
-      <span>Stay Tuned...</span>
-    </article>
-    <footer style="text-align:center;background:#FFF;padding:10px;height:100px;position:relative;box-shadow: 0px -5px 5px #555;">
-        <div  id="connector" style="min-height:80px;width:80%;margin-left:9%;position:absolute;top:-40px;background:#FFF;z-index:-2;">
+
+    <footer>
+        <div  id="connector">
         </div>
         <div style="position:relative;">
-          <span style="font-size:30px;position:absolute;left:20px;padding:5px;color:white;background:#007Daf;border-radius:3px;"><b>
+          <span id="views"><b>
             <?php
-              $dbhost = 'localhost';
-              $dbuser = 'root';
-              $dbpass = 'root';
-              $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gatewy');
-              mysql_select_db( 'gatewy' );
+              $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
+              mysql_select_db( 'gateways' );
               $sql="SELECT count(*) no from counter";
               $retval = mysql_query( $sql, $conn );
               $row=mysql_fetch_array($retval);
@@ -304,19 +735,20 @@
               --iron-icon-width: 32px;
               }
             </style>
-            <a href="mailto:gateways@cs.christuniversity.in" style="text-decoration:none;color:#000;" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
+            <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
           </span>
         <span>
           <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
         </span>
       </div>
       <span style="padding-left:20px">
-        <b style="font-size:15px;padding-bottom:5px;">&copy Gateways 2016</b><br>
-        <div style="float:right;display:inline-block;padding:10px;background:rgba(0,0,0,0.8);color:#FFF">Check our Facebook page for pre-fest events to win exciting prizes</div>
-        <div style="float:left;display:inline-block;padding:10px;background:rgba(200,200,200,0.8);color:#000">Works best on Google Chrome</div>
+        <b id="gateways_copyright">&copy Gateways 2016</b><br>
+        <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
+        <div id="footer_left">Works best on Google Chrome</div>
       </span>
     </footer>
   </body>
+  <my-console id="console" style="visibility:hidden"></my-console>
 </html>
 
 <!--Video Dialog -->
@@ -383,17 +815,37 @@
 
 <!-- Animation of welcome message -->
 <script>
-  function animateGateways(){
-    document.getElementsByTagName("body")[0].style.visibility="visible";
-    document.getElementById("spin").style.visibility="hidden";
-    //$( document ).ready(function() {
-      $("#gateways").animate({ marginTop: "15px" }, 1000 )
-                    .animate({fontSize: '60px'}, 1000);
-      $("#clock").fadeOut(10)
-                       .fadeIn(9000);
-    //});
-  }
+function animateGateways(){
+  var mql = window.matchMedia("screen and (max-width: 810px)")
+  if (mql.matches){ // if media query matches
 
+      document.getElementsByTagName("body")[0].style.visibility="visible";
+      document.getElementById("spin").style.visibility="hidden";
+        $("#gateways").animate({ marginTop: "10px" }, 1000 )
+                      .animate({fontSize: '30px'}, 1000);
+        $("#clock").fadeOut(10)
+                         .fadeIn(9000);
+    }
+    else {
+      document.getElementsByTagName("body")[0].style.visibility="visible";
+      document.getElementById("spin").style.visibility="hidden";
+        $("#gateways").animate({ marginTop: "15px" }, 1000 )
+                      .animate({fontSize: '60px'}, 1000);
+        $("#clock").fadeOut(10)
+                         .fadeIn(9000);
+    }
+
+  }
+  function toggleConsole(){
+    var console=document.getElementById("console");
+    if(console.style.visibility=="hidden"){
+      console.style.visibility="visible";
+    }
+    else {
+      console.style.visibility="hidden";
+    }
+
+  }
   function pauseVideo(){
       var vdiag=document.getElementById("videodialog");
       vdiag.close();
