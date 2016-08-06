@@ -1,12 +1,8 @@
 <html>
   <?php
-  session_start();
-error_reporting(E_ALL); 
-  ini_set('display_errors', 1); 
-  
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'mysql';
+    $dbpass = 'root';
     $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
     mysql_select_db( 'gateways' );
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
@@ -151,6 +147,7 @@ error_reporting(E_ALL);
           #first_view	{
             background-image:url('images/back.jpg');
           	animation: animatedBackground 60s linear infinite;
+            min-height: 100%;
           }
 
           #gatewaysLogo{
@@ -216,23 +213,25 @@ error_reporting(E_ALL);
           }
 
           #about_holder{
-            background:#F2F2F2;
+            background-color: inherit;
             color:#000;
-            height:100%;
-            width:80%;
-            margin:auto;
+            width:100%;
             position:relative;
-            top:-50px;
             z-index:1;
             display:block;
             position:relative;
           }
 
           #about{
+            background:#F5F5F5;
+            position:relative;
+            top:-30px;
             padding-top:1%;
+            min-height:100%;
+            width: 70%;
+            margin:auto;
             padding-right:100px;
             padding-left:100px;
-            opacity:0.8;
             text-align:justify;
           }
 
@@ -276,14 +275,13 @@ error_reporting(E_ALL);
           }
 
           #about_background{
-            position:absolute;
+            position:relative;
             background-image:url('./images/blocks.jpg');
             background-repeat:no-repeat;
             background-size:100% 100%;
             min-width:100%;
-            min-height:500px;
-            bottom:-90px;
-            z-index:-1;
+            min-height:50%;
+            margin:auto;
           }
 
           footer{
@@ -291,18 +289,8 @@ error_reporting(E_ALL);
             background:#FFF;
             padding:10px;
             height:100px;
-            position:relative;
+            width:100%;
             box-shadow: 0px -5px 5px #555;
-
-          }
-          #connector{
-            min-height:80px;
-            width:80%;
-            margin-left:9%;
-            position:absolute;
-            top:-40px;
-            background:#FFF;
-            z-index:-2;
           }
 
           #views{
@@ -464,42 +452,44 @@ error_reporting(E_ALL);
           }
 
           #about_holder{
-            background:#F2F2F2;
+            background-color: inherit;
             color:#000;
-            height:100%;
-            width:80%;
-            margin:auto;
+            width:100%;
             position:relative;
-            top:-20px;
             z-index:1;
             display:block;
             position:relative;
           }
 
           #about{
+            background:#F5F5F5;
+            position:relative;
+            top:-30px;
             padding-top:1%;
+            min-height:100%;
+            width: 70%;
+            margin:auto;
             padding-right:100px;
             padding-left:100px;
-            opacity:0.8;
             text-align:justify;
           }
 
           #about_header{
-            font-size:25px;
+            font-size:40px;
           }
 
           #about_fest_description{
             display:inline-block;
-            font-size:10px;
+            font-size:15px;
             max-width:40%;
-            padding:2px;
-            padding-left:10px;
+            padding:4px;
+            padding-left:15px;
           }
 
           #fest_header{
             position:relative;
-            top:-10px;
-            font-size:15px;
+            top:-15px;
+            font-size:25px;
           }
 
           #about_theme_description{
@@ -518,20 +508,19 @@ error_reporting(E_ALL);
             background-repeat:no-repeat;
             background-size:100% 100%;
             z-index:3;
-            min-height:30px;
-            min-width:50px;
+            min-height:50px;
+            min-width:85px;
             display:inline-block;
           }
 
           #about_background{
-            position:absolute;
+            position:relative;
             background-image:url('./images/blocks.jpg');
             background-repeat:no-repeat;
             background-size:100% 100%;
             min-width:100%;
-            min-height:200px;
-            bottom:-90px;
-            z-index:-1;
+            min-height:50%;
+            margin:auto;
           }
 
           footer{
@@ -539,10 +528,8 @@ error_reporting(E_ALL);
             background:#FFF;
             padding:10px;
             height:100px;
-            position:relative;
-            top:80px;
+            width:100%;
             box-shadow: 0px -5px 5px #555;
-
           }
 
           #views{
@@ -638,53 +625,7 @@ error_reporting(E_ALL);
         </div>
 
         <center class="white">
-          <?php
-            //date_default_timezone_set('India/Kolkata');
-            $date=mktime(0, 0, 0, 8, 15, 2016);  //from 15 August 2016 00:00:00 am
-          ?>
-
-          <!-- Delete from here when making web component -->
-          <script type="text/javascript" src="./my_components/my-countdown/clock_assets/flipclock.js"></script>
-          <link rel="stylesheet" type="text/css" href="./my_components/my-countdown/clock_assets/flipclock.css">
-          <style>
-              #clock{
-                padding:18px;
-                display:inline-flex;
-                background:#EEFFEE;
-                border-radius: : 60px;
-                margin:auto;
-
-              }
-              body .flip-clock-wrapper ul li a div div.inn, body .flip-clock-small-wrapper ul li a div div.inn {
-                  color: #EEE;
-                  background-color: #007daf;
-                }
-              body .flip-clock-dot, body .flip-clock-small-wrapper .flip-clock-dot {
-                background: #000;
-              }
-              body .flip-clock-wrapper .flip-clock-meridium a, body .flip-clock-small-wrapper .flip-clock-meridium a {
-                color: #FFF;
-              }
-            </style>
-          <div id="clock">
-            <div class="clock-builder-output" sytle="display:block"></div>
-            <script>
-              $(function(){
-                  FlipClock.Lang.Custom = { days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds' };
-                  var opts = {
-                    clockFace: 'DailyCounter',
-                    countdown: true,
-                    language: 'Custom'
-                    };
-                  var countdown = <?php echo date("U", $date); ?> - <?php echo time()?> ; // from: 08/15/2016 12:00 am +0530
-                  countdown = Math.max(1, countdown);
-                  $('.clock-builder-output').FlipClock(countdown, opts);
-                });
-            </script>
-          </div>
-            <!-- Delete till here -->
-          <!--<my-countdown endtime="<?php //echo date("U", $date); ?>" starttime="<?php //echo time()?>"></my-countdown>-->
-            <p id="registration-date"><b>Registration starts from August 15, 2016</b></p>
+          <p id="registration-date"><b>Registration starts from August 15, 2016</b></p>
         </center>
       </div>
     </div>
@@ -713,48 +654,53 @@ error_reporting(E_ALL);
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
-        </div>
         <div id="about_background"></div>
-    </article>
-
-    <footer>
-        <div  id="connector">
         </div>
-        <div style="position:relative;">
-          <span id="views"><b>
-            <?php
-              $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
-              mysql_select_db( 'gateways' );
-              $sql="SELECT count(*) no from counter";
-              $retval = mysql_query( $sql, $conn );
-              $row=mysql_fetch_array($retval);
-              echo $row['no'].' views';
-            ?></b>
+        <div id="general_rules" style="position:relative;top:-30px;">
+          <div id="rules_banner" class="white" style="background-color:#007Daf;min-width:100%;min-height:50px;text-align:center;font-size:30px;padding:30px;"><b>GENERAL RULES</b></div>
+          <div id="rules_list" style="padding:35px;max-width:80%;margin:auto;background-color:white;font-size:20px">
+            <ul>
+              <li>Rule 1</li>
+              <li>Rule 1</li>
+            </ul>
+          </div>
+        </div>
+        <footer>
+            <div style="position:relative;">
+              <span id="views"><b>
+                <?php
+                  $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
+                  mysql_select_db( 'gateways' );
+                  $sql="SELECT count(*) no from counter";
+                  $retval = mysql_query( $sql, $conn );
+                  $row=mysql_fetch_array($retval);
+                  echo $row['no'].' views';
+                ?></b>
+              </span>
+              <span>
+                <style is="custom-style">
+                .big {
+                  top:-10px;
+                  --iron-icon-height: 32px;
+                  --iron-icon-width: 32px;
+                  }
+                </style>
+                <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
+              </span>
+            <span>
+              <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
+            </span>
+          </div>
+          <span style="padding-left:20px">
+            <b id="gateways_copyright">&copy Gateways 2016</b><br>
+            <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
+            <div id="footer_left">Works best on Google Chrome</div>
           </span>
-          <span>
-            <style is="custom-style">
-            .big {
-              top:-10px;
-              --iron-icon-height: 32px;
-              --iron-icon-width: 32px;
-              }
-            </style>
-            <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
-          </span>
-        <span>
-          <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
-        </span>
-      </div>
-      <span style="padding-left:20px">
-        <b id="gateways_copyright">&copy Gateways 2016</b><br>
-        <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
-        <div id="footer_left">Works best on Google Chrome</div>
-      </span>
-    </footer>
+        </footer>
+    </article>
   </body>
-  <my-console id="console" style="visibility:hidden"></my-console>
 </html>
-
+<my-console id="console" style="visibility:hidden;"></my-console>
 <!--Video Dialog -->
 <paper-dialog id="videodialog" modal>
   <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseVideo()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
@@ -773,7 +719,7 @@ error_reporting(E_ALL);
       <table border="0" style="margin:auto;text-align:center;">
         <tr>
           <td colspan="2">
-            <div class="profile" style="background-image: url('./images/jerin.jpg')" onmouseover="document.getElementById('jerin-dropdown').toggle();"></div>
+            <a href="#"><div class="profile" style="background-image: url('./images/jerin.jpg')" onclick="document.getElementById('jerin-dropdown').toggle();"></div></a>
             <iron-dropdown id="jerin-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                 Jerrin James | <iron-icon icon="communication:contact-phone"></iron-icon> | 9686530428
@@ -782,14 +728,16 @@ error_reporting(E_ALL);
           </td>
         </tr>
         <tr>
-          <td><div class="profile" style="background-image: url('./images/suzan.jpg')" onmouseover="document.getElementById('suzan-dropdown').toggle();"></div>
+          <td>
+            <a href="#"><div class="profile" style="background-image: url('./images/suzan.jpg')" onclick="document.getElementById('suzan-dropdown').toggle();"></div></a>
             <iron-dropdown id="suzan-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                 Sussan Elias | <iron-icon icon="communication:contact-phone"></iron-icon> | 8095510370
               </div>
             </iron-dropdown>
           </td>
-          <td><div class="profile" style="background-image: url('./images/nambita.jpg')" onmouseover="document.getElementById('nambita-dropdown').toggle();"></div>
+          <td>
+            <a href="#"><div class="profile" style="background-image: url('./images/nambita.jpg')" onclick="document.getElementById('nambita-dropdown').toggle();"></div></a>
             <iron-dropdown id="nambita-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                         Namita Gupta | <iron-icon icon="communication:contact-phone"></iron-icon> | 7406435312
@@ -798,7 +746,8 @@ error_reporting(E_ALL);
           </td>
         </tr>
         <tr>
-          <td colspan="2"><div class="profile" style="background-image: url('./images/karanjit.jpg')" onmouseover="document.getElementById('karanjit-dropdown').toggle();"></div>
+          <td colspan="2">
+            <a href="#"><div class="profile" style="background-image: url('./images/karanjit.jpg')" onclick="document.getElementById('karanjit-dropdown').toggle();"></div></a>
             <iron-dropdown id="karanjit-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                         Karanjit Tiwana | <iron-icon icon="communication:contact-phone"></iron-icon> | 9663661306

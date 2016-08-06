@@ -1,16 +1,17 @@
-<!Doctype html>
 <html>
   <?php
-session_start();
-error_reporting(E_ALL); 
-  ini_set('display_errors', 1); 
+    session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'mysql';
+    $dbpass = 'root';
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
+    date_default_timezone_set('Asia/Kolkata');//or change to whatever timezone you want
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
     $retval = mysqli_query($conn,$sql );
   ?>
+
   <head>
     <!-- Imports -->
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
@@ -31,12 +32,14 @@ error_reporting(E_ALL);
     <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="./bower_components/iron-icons/communication-icons.html">
     <link rel="import" href="./bower_components/paper-spinner/paper-spinner.html">
+    <link rel="import" href="./bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="import" href="./bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="./bower_components/iron-list/iron-list.html">
     <link rel="import" href="./my_components/my-console.html">
     <link rel="import" href="./bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="icon" type="image/png" href="./images/gateways-logo.png" />
 
     <!-- styles -->
-
     <style>
       * {
           font-family: 'Roboto', sans-serif;
@@ -149,7 +152,7 @@ error_reporting(E_ALL);
           }
 
           /**animate background*/
-          #first_view {
+          #first_view	{
             background-image:url('images/back.jpg');
             animation: animatedBackground 60s linear infinite;
             min-height: 100%;
@@ -280,11 +283,12 @@ error_reporting(E_ALL);
           }
 
           #about_background{
+            position:relative;
             background-image:url('./images/blocks.jpg');
             background-repeat:no-repeat;
             background-size:100% 100%;
             min-width:100%;
-            min-height:200px;
+            min-height:50%;
             margin:auto;
           }
 
@@ -388,10 +392,9 @@ error_reporting(E_ALL);
           }
 
           /**animate background*/
-          #first_view {
+          #first_view	{
             background-image:url('images/back.jpg');
             animation: animatedBackground 60s linear infinite;
-            min-height:100%;
           }
 
           #gatewaysLogo{
@@ -581,26 +584,30 @@ error_reporting(E_ALL);
           display:inline-block;
           float : left;
         }
-          #login{
+
+        #login{
           padding:20px;
           color:#fff;
         }
+
         paper-button button {
           padding:5px;
-        background-color: transparent;
-        border-color: transparent;
+          background-color: transparent;
+          border-color: transparent;
         }
+
         .yellow-button {
-        text-transform: none;
-        color: #eeff41;
+          text-transform: none;
+          color: #eeff41;
         }
-         paper-button{
-    background-color: #29aba4;
-    color:#fff;
-   }
+
+        paper-button{
+          background-color: #29aba4;
+          color:#fff;
+       }
       </style>
-      
-        
+
+
       <title>Gateways</title>
 
   </head>
@@ -616,9 +623,13 @@ error_reporting(E_ALL);
           <iron-selector selected="0">
             <div class="nav"><a class="anchor" href="#about"  ><paper-item class="nav_links"><paper-ripple></paper-ripple>About</paper-item></a></div>
             <div class="nav"><a  class="anchor" href="./pages/events.php" ><paper-item class="nav_links" ><paper-ripple></paper-ripple>Events</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#video"  ><paper-item class="nav_links" onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#poster"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#schedule"><paper-item class="nav_links" onclick="scheduledialog.open()"><paper-ripple recenters></paper-ripple>Schedule</paper-item></a></div>
+            <div class="nav" style="position:relative;"><a  class="anchor" href="#more" ><paper-item class="nav_links" onclick="toggleMenu()"><paper-ripple></paper-ripple>More</paper-item></a>
+              <paper-listbox id="menu" style="visibility:hidden;background-color:#111;z-index:1;position:absolute;padding:10px;opacity:0.9" onclick="toggleMenu()">
+                <div class="nav"><a class="anchor" href="#schedule"><paper-item class="nav_links" onclick="scheduledialog.open()"><paper-ripple recenters></paper-ripple>Schedule</paper-item></a></div>
+                <div class="nav"><a class="anchor" href="#poster"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
+                <div class="nav"><a class="anchor" href="#video"><paper-item class="nav_links" onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
+              </paper-listbox>
+            </div>
            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="contactdialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
           </iron-selector>
         </div>
@@ -631,7 +642,7 @@ error_reporting(E_ALL);
           <div class="nav">
             <?php if($flag==1) echo '<a class="anchor" href="logout.php"><paper-item class="nav_links" onclick="">Logout</paper-item></a>'; ?>
            </div>
-        
+
           </iron-selector>
         </div>
       </div>
@@ -657,11 +668,7 @@ error_reporting(E_ALL);
         </div>
 
         <center class="white">
-        
-
-          
-          <!--<my-countdown endtime="<?php //echo date("U", $date); ?>" starttime="<?php //echo time()?>"></my-countdown>-->
-            <p id="registration-date"><b>Registration started</b></p>
+          <p id="registration-date"><b>Registration started</b></p>
         </center>
       </div>
     </div>
@@ -690,17 +697,17 @@ error_reporting(E_ALL);
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
-          <div id="about_background"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+          <div id="about_background"></div>
         </div>
         <div id="general_rules" style="position:relative;top:-30px;">
           <div id="rules_banner" class="white" style="background-color:#007Daf;min-width:100%;min-height:50px;text-align:center;font-size:30px;padding:30px;"><b>GENERAL RULES</b></div>
           <div id="rules_list" style="padding:35px;max-width:80%;margin:auto;background:#F5F5F5;font-size:15px">
             <ul>
               <li>Maximum 20 participants per college.</li>
-              <li>Participants are required to carry there ID cards.</li>
-              <li>One participant can participate in a maximum of 3 events.</li>
-              <li>All the 3 events cannot be from the same category (technical and non-technical)</li>
-              <li>Laptop, pendrives and cameras has to be carried by the participant.</li>
+              <li>Participants are required to carry their ID cards.</li>
+              <li>A participant can participate in a maximum of 3 events.</li>
+              <li>All the 3 events for a participant cannot be from the same category (technical or non-technical)</li>
+              <li>Laptop, pendrives and cameras if required, have to be carried by the participant.</li>
               <li>Registration should be done online before 4th September 2016.</li>
               <li>Outstation students should inform before 4th September 2016 for accommodation.</li>
               <li>Registration fee of Rs 100/- per participant. In no case, the fee will be refunded.</li>
@@ -821,8 +828,6 @@ error_reporting(E_ALL);
 
 
 <!-- Toasts-->
-<paper-toast class="toast" id="registrationtoast" text="Registration from 15th August 2016"></paper-toast>
-<paper-toast class="toast" id="videotoast" text="Teaser coming soon..."></paper-toast>
 <paper-toast class="toast"   id="toast1" duration="0" text="Wrong email or password!">
   <a href="#" onclick="toast1.toggle()" style="width:40px;text-decoration:none;padding:2px;border-radius:100px;background-color:#007a99;color:#fff;">x</a>
 </paper-toast>
@@ -872,6 +877,15 @@ function animateGateways(){
       vdiag.close();
       var iframe = document.getElementById('myvideo');
       iframe.src = iframe.src;
+    }
+    function toggleMenu() {
+      var menu=document.getElementById("menu");
+      if(menu.style.visibility=="hidden"){
+        menu.style.visibility="visible";
+      }
+      else {
+        menu.style.visibility="hidden";
+      }
     }
 </script>
 </html>

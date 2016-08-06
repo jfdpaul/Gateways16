@@ -3,13 +3,16 @@
     <link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
     <style>
+    *{
+      font-size:20px;
+    }
       .event_block{
-        background:#ac3;
+        background:#DDD;
         margin:4px;
         padding:4px;
         float:left;
-        min-width: 200px;
-        min-height: 200px;
+        min-width: 220px;
+        min-height: 220px;
       }
       body{
         background-color: #111122;
@@ -36,6 +39,22 @@
       #right_menu{
         float:right;
       }
+
+      #title_holder{
+        background-color: #007aa0;
+        float:left;
+        width:98%;
+        padding: 10px;
+      }
+
+      #title{
+        font-size:50px;
+      }
+
+      .event_image{
+        float:right;
+      }
+
     </style>
   </head>
   <body>
@@ -56,11 +75,11 @@
       $events=$db->get_event_organizers_n_rules_details();
       /*$events=array("quiz"=>array("name"=>"Quiz","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),"web"=>array("name"=>"Web","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")),
       "itmanager"=>array("name"=>"IT Manager","description"=>"THis is coding","rules"=>array("1"=>"No lappy","2"=>"No internet")));
-*/
+      */
       foreach ($events as $key => $value) {
         ?>
-        <div style="" class="event_block" onclick="event<?php echo $key?>dialog.open()">
-          <span><?php echo $value['e_name']?></span>
+        <div class="event_block" onclick="event<?php echo $key?>dialog.open()">
+          <span><img src="../images/<?php echo $value['code_name']?>.png" width="230px" height="230px"/></span>
         </div>
         <?php
       }
@@ -71,16 +90,24 @@
 <?php
 foreach ($events as $key => $value) {
 ?>
-<paper-dialog id="event<?php echo $key?>dialog" style="height:80%;width:80%;">
-  <img src="../images/<?php echo value['code_name']?>.jpg" height="45%" width="95%"/>
+<paper-dialog id="event<?php echo $key?>dialog" style="height:80%;width:80%;padding:10px;">
+  <div id="title_holder">
+    <br><br>
+    <div style="float:left;display:block;max-width:40%;color:white">
+      <div id="title"><?php echo $value['e_name']?></div>
+      <br><br>
+      <article >
+        <?php
+          echo $value["description"];
+        ?>
+      </article>
+    </div>
+    <img class="event_image" src="../images/<?php echo $value['code_name']?>.png" height="200" width="400"/>
+
+  </div>
   <paper-dialog-scrollable>
   <div id="rules">
 
-    <article>
-      <?php
-        echo $value["description"];
-      ?>
-    </article>
     <ul>
       <?php
         foreach($value["rules"] as $key => $value){

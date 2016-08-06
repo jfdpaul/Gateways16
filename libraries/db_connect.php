@@ -1,12 +1,12 @@
 <?php
 
-error_reporting(E_ALL); 
-  ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+  ini_set('display_errors', 1);
 class db_connect{
     // property declaration
     private $dbhost = 'localhost';
     private $dbuser = 'root';
-    private $dbpass = 'mysql';
+    private $dbpass = 'root';
     private $conn;
 
     public function connect(){
@@ -50,7 +50,7 @@ class db_connect{
     public function get_college_name($col_id){
        $sql = "SELECT name FROM colleges where col_id=$col_id";
 
-      
+
       $retval = mysqli_query( $this->conn, $sql );
       if(! $retval ){
        die('Could not get data: ' . mysqli_error($this->conn));
@@ -58,7 +58,7 @@ class db_connect{
 
       $row = mysqli_fetch_array($retval,MYSQLI_ASSOC);
           return $row['name'] ;
-      
+
     }
     /*Function to authenticate username and password from organizers table*/
     public function authenticate_organizer($uname,$password){
@@ -82,7 +82,7 @@ class db_connect{
       public function get_organizer_details_for_uname_password($uname,$password){
         $uname=mysqli_real_escape_string($this->conn,$uname);
         $password=mysqli_real_escape_string($this->conn,$password);
-      
+
         $sql = "SELECT events.e_id,events.name FROM events,organizers,events_organizers where username='$uname' and password='$password' and organizers.o_id = events_organizers.o_id and events.e_id=events_organizers.e_id";
 
         $retval = mysqli_query( $this->conn,$sql );
@@ -292,7 +292,7 @@ class db_connect{
 
       //Function to show all event related details
       public function get_event_organizers_n_rules_details(){
-        $sql="SELECT events.e_id,events.code_name,events.name e_name,description,start_time,end_time,venues.name v_name,organizers.name o_name from events,venues,organizers,events_organizers where events.e_id=events_organizers.e_id and events_organizers.o_id=organizers.o_id and venues.v_id=events.v_id";
+        $sql="SELECT events.e_id,events.code_name,events.name e_name,description from events";
         $retval = mysqli_query( $this->conn,$sql );
         if(! $retval ){
          die('Could not delete data: ' . mysqli_error($this->conn));
@@ -585,7 +585,7 @@ class db_connect{
       }
 
         public function update_college_participants($c_id,$p_id,$name,$email,$phone){
-        
+
               $name=mysqli_escape_string($this->conn,$name);
               $email=mysqli_escape_string($this->conn,$email);
               $phone=mysqli_escape_string($this->conn,$phone);
@@ -593,16 +593,16 @@ class db_connect{
               $retval = mysqli_query( $this->conn,$sql );
               if(! $retval ){
             die('Could not get data: ' . mysqli_error($this->conn));
-            }   
+            }
           }
-          
-      
-    
+
+
+
 
 
       public function get_college_participants($c_id){
         $i=0;
-      
+
         $sql="SELECT * FROM participants WHERE col_id = ".$c_id;
         $retval = @mysqli_query( $this->conn,$sql )or die('Could not get data: ' . mysqli_error($this->conn));
         $result[][]=array();
@@ -611,22 +611,22 @@ class db_connect{
          $result[$i]['name']=$row['name'];
          $result[$i]['email']=$row['email'];
          $result[$i]['mobile']=$row['mobile'];
-          $i++; 
+          $i++;
         }
         return $result;
-    }   
+    }
 
       public function get_accomodation_count($c_id){
         $sql="SELECT accomodation_count FROM colleges WHERE col_id = ".$c_id;
         $retval = @mysqli_query( $this->conn,$sql )or die('Could not get data: ' . mysqli_error($this->conn));
         $row=mysqli_fetch_array($retval,MYSQLI_ASSOC);
         return $row['accomodation_count'];
-        
+
       }
 
 }// end of class
 
 $db=new db_connect();
 $db->connect();
-//echo $db->get_event_organizers_n_rules_details();
+//echo json_encode($db->get_event_organizers_n_rules_details());
 ?>
