@@ -6,5 +6,5 @@
     echo "Null received";
   }
   else
-  $res=$db->delete_organizer_by_id($o_id)or die(mysql_error());
+  $res=$db->delete_organizer_by_id($o_id);
 ?>

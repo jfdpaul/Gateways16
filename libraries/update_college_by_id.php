@@ -3,9 +3,13 @@
 
   $col_id=$_REQUEST['col_id'];
   $col_name=$_REQUEST['col_name'];
-  if($col_id==null||col_name==null){
+  if($col_id==null||$col_name==null){
     echo "Null received";
   }
-  else
-  $res=$db->update_college_by_id($col_id,$col_name)or die(mysql_error());
+  else{
+  	$res=$db->update_college_by_id($col_id,$col_name);
+  	echo "success";	
+  }
+  
+
 ?>

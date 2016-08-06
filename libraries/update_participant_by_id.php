@@ -11,5 +11,5 @@
     echo "Null received";
   }
   else
-  $res=$db->update_participant_by_id($p_id,$p_first_name,$p_last_name,$p_email,$p_mobile,$p_col_id)or die(mysql_error());
+  $res=$db->update_participant_by_id($p_id,$p_first_name,$p_last_name,$p_email,$p_mobile,$p_col_id);
 ?>

@@ -12,5 +12,5 @@
     echo "Null received";
   }
   else
-  $res=$db->update_organizer_by_id($o_id,$o_name,$o_email,$o_mobile,$o_username,$o_password,$o_privilege)or die(mysql_error());
+  $res=$db->update_organizer_by_id($o_id,$o_name,$o_email,$o_mobile,$o_username,$o_password,$o_privilege);
 ?>

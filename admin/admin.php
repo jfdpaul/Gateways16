@@ -284,6 +284,7 @@ function delete_organizer(){
    function update_college(){
      var col_name=$("#update_col_name").val();
      var col_id=$("#update_col_id").val();
+     console.log(col_name);
      if(col_id!=''&&col_name!='')
      $("#college_message").load('../libraries/update_college_by_id.php',{"col_id":col_id,"col_name":col_name});
    }

@@ -1,12 +1,15 @@
+<!Doctype html>
 <html>
   <?php
+session_start();
+error_reporting(E_ALL); 
+  ini_set('display_errors', 1); 
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'root';
-    $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
-    mysql_select_db( 'gateways' );
+    $dbpass = 'mysql';
+    $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
-    $retval = mysql_query( $sql, $conn );
+    $retval = mysqli_query($conn,$sql );
   ?>
   <head>
     <!-- Imports -->
@@ -17,6 +20,8 @@
     <link rel="import" href="./bower_components/polymer/polymer.html">
     <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
     <link rel="import" href="./bower_components/paper-item/paper-item.html">
+    <link rel="import" href="./bower_components/paper-input/paper-input.html">
+    <link rel="import" href="./bower_components/paper-button/paper-button.html">
     <link rel="import" href="./bower_components/paper-ripple/paper-ripple.html">
     <link rel="import" href="./bower_components/paper-toast/paper-toast.html">
     <link rel="import" href="./bower_components/paper-dialog/paper-dialog.html">
@@ -58,8 +63,8 @@
 
         /**For background animation*/
         @keyframes animatedBackground {
-        	from { background-position: 0 0; }
-        	to { background-position: 100% 100%; }
+          from { background-position: 0 0; }
+          to { background-position: 100% 100%; }
         }
 
 
@@ -144,9 +149,10 @@
           }
 
           /**animate background*/
-          #first_view	{
+          #first_view {
             background-image:url('images/back.jpg');
-          	animation: animatedBackground 60s linear infinite;
+            animation: animatedBackground 60s linear infinite;
+            min-height: 100%;
           }
 
           #gatewaysLogo{
@@ -212,23 +218,25 @@
           }
 
           #about_holder{
-            background:#F2F2F2;
+            background-color: inherit;
             color:#000;
-            height:100%;
-            width:80%;
-            margin:auto;
+            width:100%;
             position:relative;
-            top:-50px;
             z-index:1;
             display:block;
             position:relative;
           }
 
           #about{
+            background:#F5F5F5;
+            position:relative;
+            top:-30px;
             padding-top:1%;
+            min-height:100%;
+            width: 70%;
+            margin:auto;
             padding-right:100px;
             padding-left:100px;
-            opacity:0.8;
             text-align:justify;
           }
 
@@ -272,14 +280,12 @@
           }
 
           #about_background{
-            position:absolute;
             background-image:url('./images/blocks.jpg');
             background-repeat:no-repeat;
             background-size:100% 100%;
             min-width:100%;
-            min-height:500px;
-            bottom:-90px;
-            z-index:-1;
+            min-height:200px;
+            margin:auto;
           }
 
           footer{
@@ -287,18 +293,8 @@
             background:#FFF;
             padding:10px;
             height:100px;
-            position:relative;
+            width:100%;
             box-shadow: 0px -5px 5px #555;
-
-          }
-          #connector{
-            min-height:80px;
-            width:80%;
-            margin-left:9%;
-            position:absolute;
-            top:-40px;
-            background:#FFF;
-            z-index:-2;
           }
 
           #views{
@@ -392,9 +388,10 @@
           }
 
           /**animate background*/
-          #first_view	{
+          #first_view {
             background-image:url('images/back.jpg');
             animation: animatedBackground 60s linear infinite;
+            min-height:100%;
           }
 
           #gatewaysLogo{
@@ -460,42 +457,44 @@
           }
 
           #about_holder{
-            background:#F2F2F2;
+            background-color: inherit;
             color:#000;
-            height:100%;
-            width:80%;
-            margin:auto;
+            width:100%;
             position:relative;
-            top:-20px;
             z-index:1;
             display:block;
             position:relative;
           }
 
           #about{
+            background:#F5F5F5;
+            position:relative;
+            top:-30px;
             padding-top:1%;
+            min-height:100%;
+            width: 70%;
+            margin:auto;
             padding-right:100px;
             padding-left:100px;
-            opacity:0.8;
             text-align:justify;
           }
 
           #about_header{
-            font-size:25px;
+            font-size:40px;
           }
 
           #about_fest_description{
             display:inline-block;
-            font-size:10px;
+            font-size:15px;
             max-width:40%;
-            padding:2px;
-            padding-left:10px;
+            padding:4px;
+            padding-left:15px;
           }
 
           #fest_header{
             position:relative;
-            top:-10px;
-            font-size:15px;
+            top:-15px;
+            font-size:25px;
           }
 
           #about_theme_description{
@@ -514,20 +513,19 @@
             background-repeat:no-repeat;
             background-size:100% 100%;
             z-index:3;
-            min-height:30px;
-            min-width:50px;
+            min-height:50px;
+            min-width:85px;
             display:inline-block;
           }
 
           #about_background{
-            position:absolute;
+            position:relative;
             background-image:url('./images/blocks.jpg');
             background-repeat:no-repeat;
             background-size:100% 100%;
             min-width:100%;
-            min-height:200px;
-            bottom:-90px;
-            z-index:-1;
+            min-height:50%;
+            margin:auto;
           }
 
           footer{
@@ -535,10 +533,8 @@
             background:#FFF;
             padding:10px;
             height:100px;
-            position:relative;
-            top:80px;
+            width:100%;
             box-shadow: 0px -5px 5px #555;
-
           }
 
           #views{
@@ -585,12 +581,32 @@
           display:inline-block;
           float : left;
         }
+          #login{
+          padding:20px;
+          color:#fff;
+        }
+        paper-button button {
+          padding:5px;
+        background-color: transparent;
+        border-color: transparent;
+        }
+        .yellow-button {
+        text-transform: none;
+        color: #eeff41;
+        }
+         paper-button{
+    background-color: #29aba4;
+    color:#fff;
+   }
       </style>
+      
+        
       <title>Gateways</title>
 
   </head>
   <paper-spinner id="spin" active></paper-spinner>
   <body onload="animateGateways();" style="visibility:hidden;">
+    <div id="error"></div>
     <a href="#mascot" onclick="toggleConsole();"><div id="gigaboy" title='Giga Boy: We humbly invite all the tech savvy aspirants out there, to join us in this passion filled, exuberant journey, to witness beauty in bytes.'></div></a>
     <!-- TOP MENU  -->
     <div id="first_view">
@@ -599,16 +615,23 @@
         <div id="menu_items" class="flexchild" style="margin-top:50px">
           <iron-selector selected="0">
             <div class="nav"><a class="anchor" href="#about"  ><paper-item class="nav_links"><paper-ripple></paper-ripple>About</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#events" ><paper-item class="nav_links" onclick="eventstoast.open()"><paper-ripple></paper-ripple>Events</paper-item></a></div>
+            <div class="nav"><a  class="anchor" href="./pages/events.php" ><paper-item class="nav_links" ><paper-ripple></paper-ripple>Events</paper-item></a></div>
             <div class="nav"><a class="anchor" href="#video"  ><paper-item class="nav_links" onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
-            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="contactDialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#poster"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#schedule"><paper-item class="nav_links" onclick="scheduledialog.open()"><paper-ripple recenters></paper-ripple>Schedule</paper-item></a></div>
+           <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="contactdialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
           </iron-selector>
         </div>
         <div id="christLogo"></div>
         <div class="flexchild" style="display:block;float:right;margin-top:50px;">
           <iron-selector selected="0" style="display:block">
-            <div class="nav"><a class="anchor" href="#login"><paper-item class="nav_links" onclick="logintoast.open()"><paper-ripple></paper-ripple>Login</paper-item></a></div>
+           <div class="nav">
+              <a class="anchor" href="#login"><paper-item class="nav_links" onclick="<?php $flag=0; if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){ echo "login.open()"; }  else { $flag=1; echo "javascript:location.href='profile.php'";}?>"><?php if($flag==0) echo "Login"; else echo "Profile"; ?> </paper-item></a>
+               </div>
+          <div class="nav">
+            <?php if($flag==1) echo '<a class="anchor" href="logout.php"><paper-item class="nav_links" onclick="">Logout</paper-item></a>'; ?>
+           </div>
+        
           </iron-selector>
         </div>
       </div>
@@ -634,59 +657,17 @@
         </div>
 
         <center class="white">
-          <?php
-            //date_default_timezone_set('India/Kolkata');
-            $date=mktime(0, 0, 0, 8, 15, 2016);  //from 15 August 2016 00:00:00 am
-          ?>
+        
 
-          <!-- Delete from here when making web component -->
-          <script type="text/javascript" src="./my_components/my-countdown/clock_assets/flipclock.js"></script>
-          <link rel="stylesheet" type="text/css" href="./my_components/my-countdown/clock_assets/flipclock.css">
-          <style>
-              #clock{
-                padding:18px;
-                display:inline-flex;
-                background:#EEFFEE;
-                border-radius: : 60px;
-                margin:auto;
-
-              }
-              body .flip-clock-wrapper ul li a div div.inn, body .flip-clock-small-wrapper ul li a div div.inn {
-                  color: #EEE;
-                  background-color: #007daf;
-                }
-              body .flip-clock-dot, body .flip-clock-small-wrapper .flip-clock-dot {
-                background: #000;
-              }
-              body .flip-clock-wrapper .flip-clock-meridium a, body .flip-clock-small-wrapper .flip-clock-meridium a {
-                color: #FFF;
-              }
-            </style>
-          <div id="clock">
-            <div class="clock-builder-output" sytle="display:block"></div>
-            <script>
-              $(function(){
-                  FlipClock.Lang.Custom = { days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds' };
-                  var opts = {
-                    clockFace: 'DailyCounter',
-                    countdown: true,
-                    language: 'Custom'
-                    };
-                  var countdown = <?php echo date("U", $date); ?> - <?php echo time()?> ; // from: 08/15/2016 12:00 am +0530
-                  countdown = Math.max(1, countdown);
-                  $('.clock-builder-output').FlipClock(countdown, opts);
-                });
-            </script>
-          </div>
-            <!-- Delete till here -->
+          
           <!--<my-countdown endtime="<?php //echo date("U", $date); ?>" starttime="<?php //echo time()?>"></my-countdown>-->
-            <p id="registration-date"><b>Registration starts from August 15, 2016</b></p>
+            <p id="registration-date"><b>Registration started</b></p>
         </center>
       </div>
     </div>
     <!-- End of first_view -->
 
-    <!-- ABOUT  -->
+       <!-- ABOUT  -->
     <article id="about_holder">
       <div id="about">
         <h1 id="about_header">ABOUT</h1>
@@ -709,48 +690,59 @@
             all are zeroing in on towards adaptive and portable systems.</p>
             <p>Modular technology has become the trend and need of the hour. We do not reinvent the wheel anymore. We borrow it, use it and modify it as per our creativity and necessities.</p>
           </div>
+          <div id="about_background"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
         </div>
-        <div id="about_background"></div>
+        <div id="general_rules" style="position:relative;top:-30px;">
+          <div id="rules_banner" class="white" style="background-color:#007Daf;min-width:100%;min-height:50px;text-align:center;font-size:30px;padding:30px;"><b>GENERAL RULES</b></div>
+          <div id="rules_list" style="padding:35px;max-width:80%;margin:auto;background:#F5F5F5;font-size:15px">
+            <ul>
+              <li>Maximum 20 participants per college.</li>
+              <li>Participants are required to carry there ID cards.</li>
+              <li>One participant can participate in a maximum of 3 events.</li>
+              <li>All the 3 events cannot be from the same category (technical and non-technical)</li>
+              <li>Laptop, pendrives and cameras has to be carried by the participant.</li>
+              <li>Registration should be done online before 4th September 2016.</li>
+              <li>Outstation students should inform before 4th September 2016 for accommodation.</li>
+              <li>Registration fee of Rs 100/- per participant. In no case, the fee will be refunded.</li>
+              <li>Kindly ensure that the participant should report 15 minutes prior to the event venue.</li>
+            </ul>
+          </div>
+        </div>
+        <footer>
+            <div style="position:relative;">
+              <span id="views"><b>
+                <?php
+                  $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
+                  $sql="SELECT count(*) no from counter";
+                  $retval = mysqli_query( $conn, $sql );
+                  $row=mysqli_fetch_array($retval,MYSQLI_ASSOC);
+                  echo $row['no'].' views';
+                ?></b>
+              </span>
+              <span>
+                <style is="custom-style">
+                .big {
+                  top:-10px;
+                  --iron-icon-height: 32px;
+                  --iron-icon-width: 32px;
+                  }
+                </style>
+                <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
+              </span>
+            <span>
+              <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
+            </span>
+          </div>
+          <span style="padding-left:20px">
+            <b id="gateways_copyright">&copy Gateways 2016</b><br>
+            <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
+            <div id="footer_left">Works best on Google Chrome</div>
+          </span>
+        </footer>
     </article>
-
-    <footer>
-        <div  id="connector">
-        </div>
-        <div style="position:relative;">
-          <span id="views"><b>
-            <?php
-              $conn = mysql_connect($dbhost, $dbuser, $dbpass,'gateways');
-              mysql_select_db( 'gateways' );
-              $sql="SELECT count(*) no from counter";
-              $retval = mysql_query( $sql, $conn );
-              $row=mysql_fetch_array($retval);
-              echo $row['no'].' views';
-            ?></b>
-          </span>
-          <span>
-            <style is="custom-style">
-            .big {
-              top:-10px;
-              --iron-icon-height: 32px;
-              --iron-icon-width: 32px;
-              }
-            </style>
-            <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
-          </span>
-        <span>
-          <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
-        </span>
-      </div>
-      <span style="padding-left:20px">
-        <b id="gateways_copyright">&copy Gateways 2016</b><br>
-        <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
-        <div id="footer_left">Works best on Google Chrome</div>
-      </span>
-    </footer>
   </body>
-  <my-console id="console" style="visibility:hidden"></my-console>
 </html>
-
+<my-console id="console" style="visibility:hidden;"></my-console>
 <!--Video Dialog -->
 <paper-dialog id="videodialog" modal>
   <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseVideo()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
@@ -761,15 +753,19 @@
   <!--<div style="background-image: url('./images/poster.jpg');margin:auto;width:95%;height:100%; background-size:100% 100%"></div>-->
   <img src="./images/poster.jpg" height="95%"/>
 </paper-dialog>
+<paper-dialog id="scheduledialog" style="height:90%;">
+  <!--<div style="background-image: url('./images/poster.jpg');margin:auto;width:95%;height:100%; background-size:100% 100%"></div>-->
+  <img src="./images/schedule.jpg" height="95%"/>
+</paper-dialog>
 
 <!-- Start of profile dialog-->
-<paper-dialog id="contactDialog" style="background:rgba(10,10,10,0.9); color:#fff;" with-backdrop >
+<paper-dialog id="contactdialog" style="background:rgba(10,10,10,0.9); color:#fff;" with-backdrop >
     <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>Student Co-ordinators</h2></center>
     <paper-dialog-scrollable>
       <table border="0" style="margin:auto;text-align:center;">
         <tr>
           <td colspan="2">
-            <div class="profile" style="background-image: url('./images/jerin.jpg')" onmouseover="document.getElementById('jerin-dropdown').toggle();"></div>
+            <a href="#"><div class="profile" style="background-image: url('./images/jerin.jpg')" onclick="document.getElementById('jerin-dropdown').toggle();"></div></a>
             <iron-dropdown id="jerin-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                 Jerrin James | <iron-icon icon="communication:contact-phone"></iron-icon> | 9686530428
@@ -778,14 +774,16 @@
           </td>
         </tr>
         <tr>
-          <td><div class="profile" style="background-image: url('./images/suzan.jpg')" onmouseover="document.getElementById('suzan-dropdown').toggle();"></div>
+          <td>
+            <a href="#"><div class="profile" style="background-image: url('./images/suzan.jpg')" onclick="document.getElementById('suzan-dropdown').toggle();"></div></a>
             <iron-dropdown id="suzan-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                 Sussan Elias | <iron-icon icon="communication:contact-phone"></iron-icon> | 8095510370
               </div>
             </iron-dropdown>
           </td>
-          <td><div class="profile" style="background-image: url('./images/nambita.jpg')" onmouseover="document.getElementById('nambita-dropdown').toggle();"></div>
+          <td>
+            <a href="#"><div class="profile" style="background-image: url('./images/nambita.jpg')" onclick="document.getElementById('nambita-dropdown').toggle();"></div></a>
             <iron-dropdown id="nambita-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                         Namita Gupta | <iron-icon icon="communication:contact-phone"></iron-icon> | 7406435312
@@ -794,7 +792,8 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2"><div class="profile" style="background-image: url('./images/karanjit.jpg')" onmouseover="document.getElementById('karanjit-dropdown').toggle();"></div>
+          <td colspan="2">
+            <a href="#"><div class="profile" style="background-image: url('./images/karanjit.jpg')" onclick="document.getElementById('karanjit-dropdown').toggle();"></div></a>
             <iron-dropdown id="karanjit-dropdown" horizontal-align="right" vertical-align="top">
               <div class="dropdown-content">
                         Karanjit Tiwana | <iron-icon icon="communication:contact-phone"></iron-icon> | 9663661306
@@ -805,17 +804,39 @@
       </table>
     </paper-dialog-scrollable>
 </paper-dialog>
+
+<paper-dialog id="login" style="background:rgba(255,255,255,0.9); color:#fff;" with-backdrop>
+     <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>College Profile Login</h2></center>
+     <div id="container" style="text-align:center;">
+      <form method="post" action="profile.php">
+      <paper-input type="text" name="email" placeholder="email"/></paper-input>
+      <paper-input type="password" name="pass" placeholder="password"/></paper-input>
+      <paper-button type="submit" style="background-color:#737379;" value="login"/><button style="color:#fff;">Login</button></paper-button>
+
+      </form>
+      </div>
+  </paper-dialog>
+
 <!-- END of profile dialog-->
+
 
 <!-- Toasts-->
 <paper-toast class="toast" id="registrationtoast" text="Registration from 15th August 2016"></paper-toast>
-<paper-toast class="toast" id="logintoast" text="You need to register first"></paper-toast>
 <paper-toast class="toast" id="videotoast" text="Teaser coming soon..."></paper-toast>
-<paper-toast class="toast" id="eventstoast" text="In Progress..."></paper-toast>
-
+<paper-toast class="toast"   id="toast1" duration="0" text="Wrong email or password!">
+  <a href="#" onclick="toast1.toggle()" style="width:40px;text-decoration:none;padding:2px;border-radius:100px;background-color:#007a99;color:#fff;">x</a>
+</paper-toast>
 <!-- Animation of welcome message -->
 <script>
+
+ toast1.fitInto = first_view;
 function animateGateways(){
+
+  <?php
+   if(isset($_GET['error']) && $_GET['error']==1){
+    echo "toast1.open();";
+  }
+  ?>
   var mql = window.matchMedia("screen and (max-width: 810px)")
   if (mql.matches){ // if media query matches
 
@@ -853,3 +874,7 @@ function animateGateways(){
       iframe.src = iframe.src;
     }
 </script>
+</html>
+<?php
+mysqli_close($conn);
+?>

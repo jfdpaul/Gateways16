@@ -6,5 +6,5 @@
     echo "Null received";
   }
   else
-  $res=$db->delete_college_by_id($col_id)or die(mysql_error());
+  $res=$db->delete_college_by_id($col_id);
 ?>

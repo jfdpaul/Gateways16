@@ -10,5 +10,5 @@
     echo "Null received";
   }
   else
-  $res=$db->update_event_by_id($e_id,$e_name,$e_description,$e_start_time,$e_end_time)or die(mysql_error());
+  $res=$db->update_event_by_id($e_id,$e_name,$e_description,$e_start_time,$e_end_time);
 ?>

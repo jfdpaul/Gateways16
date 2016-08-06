@@ -6,5 +6,5 @@
     echo "Null received";
   }
   else
-  $res=$db->delete_participant_by_id($p_id)or die(mysql_error());
+  $res=$db->delete_participant_by_id($p_id);
 ?>
