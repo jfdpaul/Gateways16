@@ -296,15 +296,6 @@
             margin:auto;
           }
 
-          footer{
-            text-align:center;
-            background:#FFF;
-            padding:10px;
-            height:100px;
-            width:100%;
-            box-shadow: 0px -5px 5px #555;
-          }
-
           #views{
             font-size:30px;
             position:absolute;
@@ -522,15 +513,6 @@
             margin:auto;
           }
 
-          footer{
-            text-align:center;
-            background:#FFF;
-            padding:10px;
-            height:100px;
-            width:100%;
-            box-shadow: 0px -5px 5px #555;
-          }
-
           #views{
             font-size:20px;
             position:absolute;
@@ -571,6 +553,15 @@
           }
         }
 
+        footer{
+          float:left;
+          text-align:center;
+          background:#FFF;
+          padding-top:5px;
+          padding-bottom:10px;
+          width:100%;
+          box-shadow: 0px -5px 5px #555;
+        }
         .flex-horizontal > div{
           display:inline-block;
           float : left;
