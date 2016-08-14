@@ -6,7 +6,7 @@ class db_connect{
     // property declaration
     private $dbhost = 'localhost';
     private $dbuser = 'root';
-    private $dbpass = 'root';
+    private $dbpass = 'mysql';
     private $conn;
 
     public function connect(){
@@ -568,11 +568,12 @@ class db_connect{
         $sql="INSERT INTO  participants(name,email,mobile,col_id) VALUES('".$name[$i]."','".$email[$i]."',".$phone[$i].",".$c_id.")";
         $retval = mysqli_query( $this->conn,$sql );
         if(! $retval ){
-         die('Could not get data: ' . mysqli_error($this->conn));
+         return -1;
         }
 
         $i++;
       }
+      return 0;
     }
 
         public function delete_college_participants($p_id){
@@ -603,7 +604,7 @@ class db_connect{
       public function get_college_participants($c_id){
         $i=0;
 
-        $sql="SELECT * FROM participants WHERE col_id = ".$c_id;
+        $sql="SELECT * FROM participants WHERE col_id = ".$c_id." ORDER BY p_id DESC";
         $retval = @mysqli_query( $this->conn,$sql )or die('Could not get data: ' . mysqli_error($this->conn));
         $result[][]=array();
         while($row=mysqli_fetch_array($retval,MYSQLI_ASSOC)){

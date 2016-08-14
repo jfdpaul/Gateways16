@@ -1,5 +1,7 @@
-<html>
+<html lang="en">
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
     <link rel="import" href="../bower_components/polymer/polymer.html">
@@ -8,9 +10,12 @@
     <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <style>
-    *{
-      font-size:20px;
-      }
+    
+      * {
+          font-family: 'Roboto', sans-serif;
+          font-size:17px;
+      
+        }
       .event_block{
         background:#DDD;
         margin:4px;
@@ -94,7 +99,6 @@
       </div>
 
       <div id="right_menu">
-        <a href="../index.php">Logout</a>
       </div>
     </nav>
     <center>

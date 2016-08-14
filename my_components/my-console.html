@@ -38,7 +38,7 @@
       <iron-a11y-keys id="a11y" target="[[target]]" keys="enter" on-keys-pressed ="onEnter"></iron-a11y-keys>
       <paper-textarea id="history" value="{{ pastdata::input }}" no-label-float max-rows="25" readonly></paper-textarea>
       <paper-input id="input1" style="position:relative;top:-15px"  no-label-float value="{{ userInput::input }}">
-        <div prefix > {{ path }} # &nbsp</div>
+        <div prefix > {{ path }}&nbsp;</div>
       </paper-input>
     </div>
 
@@ -55,7 +55,7 @@
       },
       path:{
         type:String,
-        value:'[gateways]'
+        value:'[gateways] #  '
       },
       entryMsg:{
         type:String,
@@ -80,9 +80,11 @@
     },
 
     onEnter: function() {
+      var input=this.userInput;
+      this.userInput=this.path+this.userInput;
+      switch(input){
 
-      switch(this.userInput){
-        case "":this.pastdata=this.pastdata+'\n'+this.path+" #"+this.userInput;
+        case "":this.pastdata=this.pastdata+'\n'+this.path+this.userInput;
           break;
         case "clear":this.clearConsole();
           break;

@@ -40,7 +40,8 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     <link rel="import" href="./bower_components/paper-button/paper-button.html">
     <link rel="import" href="./bower_components/paper-toolbar/paper-toolbar.html">
     <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
-
+    <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
+    
 
    
 
@@ -125,6 +126,15 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     margin-top:10px;
    
    }
+     footer{
+        float:left;
+        text-align:center;
+        background:#FFF;
+        padding-top:50px;
+        padding-bottom:20px;
+        width:100%;
+        box-shadow: 0px -5px 5px #555;
+      }
 
 
    </style>
@@ -139,9 +149,9 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
    <div id="main">
 	<paper-button name="add_participant" id="add">Add new participant</paper-button>
 	<input type="hidden" id="participant_count" value="0"/>
-	<div id="addParticipant">
-		</div>
-    	<paper-button name="Add" style="visibility:hidden;"  id="submit">Add</paper-button>
+	<div id="addParticipant"> 
+    </div>
+        <paper-button name="Add" style="visibility:hidden;"  id="submit">Add</paper-button>
         <paper-button name="Clear" style="visibility:hidden;" onclick="location.reload();"  id="clear">Clear</paper-button>
    
 	<div id="message">
@@ -165,11 +175,11 @@ if(isset($row[0]['name'])){
       ?>
   <div id="wrapper" style="position:relative;">
   <label>Name:</label> 
-<b><paper-input auto-validate id="name<?php echo $row[$i]['pid']; ?>" type="text" value="<?php  echo $row[$i]['name'] ?>" disabled="true"></b>    
+<b><paper-input auto-validate id="name<?php echo $row[$i]['pid']; ?>" is="iron-input" type="text" value="<?php  echo $row[$i]['name'] ?>" disabled="true"></b>    
 <label>Email:</label> 
-<b><paper-input auto-validate id="email<?php echo $row[$i]['pid']; ?>" type="email" value="<?php echo $row[$i]['email'] ?>" disabled="true"></b> 
+<b><paper-input auto-validate id="email<?php echo $row[$i]['pid']; ?>" is="iron-input" type="email" value="<?php echo $row[$i]['email'] ?>" disabled="true"></b> 
 <label>Phone number:</label> 
-<b><paper-input id="phone<?php echo $row[$i]['pid']; ?>" type="number" value="<?php echo $row[$i]['mobile'] ?>" disabled="true"></b>
+<b><paper-input id="phone<?php echo $row[$i]['pid']; ?>" type="number" is="iron-input"  value="<?php echo $row[$i]['mobile'] ?>" disabled="true" char-counter maxlength=10></b>
  <?php echo "<a href='libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
 echo "<paper-button noink raised onclick='edit(".$row[$i]['pid'].");' id='edit".$row[$i]['pid']."'  value='edit' alt='edit' title='edit' > Edit </paper-button>";
  ?>
@@ -184,12 +194,34 @@ echo "no participants registered yet.";
 ?>
 </div>
 
-<footer style="width:100%;background-color:#000;color:#fff;text-align:center;padding:20px;margin-left:-7px;">
-<br/>
-Copyright &copy; | Gateways 2016
+<footer>
+    <div style="position:relative;">
+      <span>
+        <style is="custom-style">
+        .big {
+          top:-10px;
+          --iron-icon-height: 32px;
+          --iron-icon-width: 32px;
+          }
+        </style>
+        <a href="mailto:gateways@cs.christuniversity.in" id="mail_icon" title="Contact us at gateways@christuniversity.in"><iron-icon class="big" icon="communication:mail-outline"></iron-icon></a>
+      </span>
+    <span>
+      <a target="_blank" href="https://www.facebook.com/gateways2k16" title="Check our Facebook page"><img alt="Follow us on Facebook" src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"></a>
+    </span>
+  </div>
+    <div style="text-align:center;">
+      <b style="font-size:15px;">&copy Gateways 2016</b>
+      <br>
+    </div>
 </footer>
-
 <paper-toast id="toast1" text="Update successful!">
+</paper-toast>
+<paper-toast id="toastName" text="Enter valid name!">
+</paper-toast>
+<paper-toast id="toastEmail" text="Enter valid email!">
+</paper-toast>
+<paper-toast id="toastPhone" text="Enter valid Phone!">
 </paper-toast>
 
 <paper-toast  style="background-color:##ce3426;color:#fff; width:50%;text-align:center;" id="toast2" text="Fields cannot be empty">
@@ -221,6 +253,8 @@ function edit(id){
     var email=$("#email"+id).val();
     var phone=$("#phone"+id).val();
     var flag=$('#edit'+id).html().split(" ");
+    var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+     
      console.log(flag[1]);
      
     if(flag[1]=="Edit"){
@@ -230,7 +264,18 @@ function edit(id){
         $('#edit'+id).html('Save');
     }
     else if($('#edit'+id).html()=="Save"){
-        window.location.href = "libraries/edit_college_participants.php?pid="+id+"&name="+name+"&email="+email+"&phone="+phone;
+
+        if(name==""){
+            toastName.open();
+            }
+        else if(email=="" || !pattern.test( email) ){
+            toastEmail.open();
+            }
+        else if(phone=="" || phone.length!=10){
+             toastPhone.open();
+        }
+        else
+            window.location.href = "libraries/edit_college_participants.php?pid="+id+"&name="+name+"&email="+email+"&phone="+phone;
     }    
    }
 
@@ -242,7 +287,7 @@ $("#add").click(function(event){
      var count=$("#participant_count").val();
      var inputName = $("<paper-input>");
      var inputEmail = $("<paper-input>");
-     var inputPhone = $("<paper-input>");
+     var inputPhone = $("<paper-input error-message='only numbers' allowed-pattern='[0-9]' char-counter maxlength=10>");
      ++count;
      inputName.attr("id","name"+count);
      inputName.attr("type","text");
@@ -254,7 +299,6 @@ $("#add").click(function(event){
      inputPhone.attr("id","phone"+count);
      inputPhone.attr("type","tel");
      inputPhone.attr("placeholder","Phone Number");
-   
      var label=$("<div id='label'></div>").text(count);
      var br=$("<br>");
      $("#addParticipant").append(br,label,inputName,br,inputEmail,br,inputPhone,br);
@@ -272,10 +316,35 @@ $("#submit").click(function(event){
          name_array[id_count-1] = $("#name"+id_count).val();
          email_array[id_count-1] = $("#email"+id_count).val();
          phone_array[id_count-1] = $("#phone"+id_count).val();
+         var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+         var flag=0;
+        if(name_array[id_count-1]==""){
+            toastName.open();
+            $("#name"+(id_count)).focus();
+            flag++;
+            }
+        else if(email_array[id_count-1]=="" || !pattern.test( email_array[id_count-1]) ){
+            toastEmail.open();
+            $("#email"+(id_count)).focus();
+            flag++;
+        }
+        else if(phone_array[id_count-1]=="" || phone_array[id_count-1].length<10){
+             toastPhone.open();
+            $("#phone"+(id_count)).focus();
+            flag++;
+        }
+
+        }
+
+        //|| phone_array[id_count-1]=="" || email_array[id_count-1]=="" 
+      if(flag==0){
+      $("#list_participants").load('libraries/add_college_participants.php', {"name_array":name_array,"email_array":email_array,"phone_array":phone_array,"college_id":c_id} );
+       $("#addParticipant").empty();
+      $("#submit").css("visibility","hidden");
+      $("#clear").css("visibility","hidden");
+      $("#participant_count").attr("value","0");
       }
       
-      $("#message").load('libraries/add_college_participants.php', {"name_array":name_array,"email_array":email_array,"phone_array":phone_array,"college_id":c_id} );
-        location.reload();
    });
 </script>
 

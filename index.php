@@ -5,7 +5,7 @@
     ini_set('display_errors', 1);
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'root';
+    $dbpass = 'mysql';
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
     date_default_timezone_set('Asia/Kolkata');//or change to whatever timezone you want
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
@@ -829,7 +829,7 @@
     </iron-dropdown>
   </div>
 </center>
-  <hr style="width:80%">
+  <hr style="width:80%;clear:both;">
   <div>
     <h3>About Website </h3>
     <br>
