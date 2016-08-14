@@ -2,6 +2,8 @@
   <head>
     <link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="./bower_components/polymer/polymer.html">
+    <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <style>
     *{
       font-size:20px;

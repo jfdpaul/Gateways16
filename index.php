@@ -100,6 +100,24 @@
           background-color: #111122;
         }
 
+        .dropdown-content{
+          color:white;
+          background:#007daf;
+          border:2px solid black;
+          padding:5px;
+          position:relative;
+          top:100px;
+          left:-7px
+        }
+
+        #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
+          left:-110px;
+        }
+
+        #jaison-dropdown .dropdown-content{
+          left:-35px;
+          bottom:10px;
+        }
         @media only screen and (min-width:810px){
 
           .profile{
@@ -113,20 +131,6 @@
             min-width:100px;
             min-height:100px;
             display:inline-block;
-          }
-
-          .dropdown-content{
-            color:white;
-            background:#007daf;
-            border:2px solid black;
-            padding:5px;
-            position:relative;
-            top:100px;
-            left:-7px
-          }
-
-          #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
-            left:-110px;
           }
 
           #spin{
@@ -355,19 +359,6 @@
             display:inline-block;
           }
 
-          .dropdown-content{
-            color:white;
-            background:#007daf;
-            border:2px solid black;
-            padding:5px;
-            position:relative;
-            top:100px;
-            left:-7px
-          }
-
-          #jerin-dropdown .dropdown-content , #karanjit-dropdown .dropdown-content{
-            left:-110px;
-          }
 
           #spin{
             position:fixed;
@@ -627,7 +618,7 @@
               <paper-listbox id="menu" style="visibility:hidden;background-color:#111;z-index:1;position:absolute;padding:10px;opacity:0.9" onclick="toggleMenu()">
                 <div class="nav"><a class="anchor" href="#schedule"><paper-item class="nav_links" onclick="scheduledialog.open()"><paper-ripple recenters></paper-ripple>Schedule</paper-item></a></div>
                 <div class="nav"><a class="anchor" href="#poster"><paper-item class="nav_links" onclick="posterdialog.open()"><paper-ripple recenters></paper-ripple>Poster</paper-item></a></div>
-                <div class="nav"><a class="anchor" href="#video"><paper-item class="nav_links" onclick="videodialog.open()"><paper-ripple></paper-ripple>Video</paper-item></a></div>
+                <div class="nav"><a class="anchor" href="#teaser"><paper-item class="nav_links" onclick="teaserdialog.open()"><paper-ripple></paper-ripple>Teaser</paper-item></a></div>
               </paper-listbox>
             </div>
            <div class="nav"><a class="anchor" href="#contact"><paper-item class="nav_links" onclick="contactdialog.open()"><paper-ripple recenters></paper-ripple>Contact</paper-item></a></div>
@@ -741,19 +732,20 @@
             </span>
           </div>
           <span style="padding-left:20px">
-            <b id="gateways_copyright">&copy Gateways 2016</b><br>
-            <div id="footer_right">Check our Facebook page for pre-fest events to win exciting prizes</div>
-            <div id="footer_left">Works best on Google Chrome</div>
+            <div style="text-align:center;">
+              <b><a href="#websitedialog" onclick="websitedialog.open()" class="nav_links anchor" style="background-color:#007adc;padding:7px;">Developed By</a></b>
+              <br><br><b id="gateways_copyright">&copy Gateways 2016</b>
+            </div>
           </span>
         </footer>
     </article>
   </body>
 </html>
 <my-console id="console" style="visibility:hidden;"></my-console>
-<!--Video Dialog -->
-<paper-dialog id="videodialog" modal>
-  <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseVideo()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
-  <iframe id="myvideo" width="850" height="500" src="https://www.youtube.com/embed/WdWja6Y7blc" frameborder="0" allowfullscreen></iframe>
+<!--Teaser Dialog -->
+<paper-dialog id="teaserdialog" modal>
+  <div style="padding:4px;display:inline-block;position:absolute;right:1px;top:-25px;"><a href="#" onclick="pauseTeaser()"><iron-icon icon="icons:cancel"></iron-icon></a></div>
+  <iframe id="myteaser" width="850" height="500" src="https://www.youtube.com/embed/WdWja6Y7blc" frameborder="0" allowfullscreen></iframe>
 </paper-dialog>
 <!--Poster Dialog -->
 <paper-dialog id="posterdialog" style="height:90%;">
@@ -812,6 +804,8 @@
     </paper-dialog-scrollable>
 </paper-dialog>
 
+<!-- END of profile dialog-->
+
 <paper-dialog id="login" style="background:rgba(255,255,255,0.9); color:#fff;" with-backdrop>
      <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>College Profile Login</h2></center>
      <div id="container" style="text-align:center;">
@@ -822,9 +816,38 @@
 
       </form>
       </div>
-  </paper-dialog>
+</paper-dialog>
 
-<!-- END of profile dialog-->
+<paper-dialog id="websitedialog" style="background:rgba(10,10,10,0.9); color:#fff;width:40%" with-backdrop>
+  <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>Website Developers</h2></center>
+<center>
+  <div style="display:block;float:left">
+    <a href="#jonathan-dropdown"><div class="profile" style="background-image: url('./images/jonathan.jpg')" onclick="document.getElementById('jonathan-dropdown').toggle();"></div></a>
+    <iron-dropdown id="jonathan-dropdown" horizontal-align="right" vertical-align="top">
+      <div id="jonathan" class="dropdown-content">
+                Jonathan Fidelis Paul | <a href="https://www.facebook.com/jonathan.paul.5076"><img src="./images/facebook-box.png" style="position:relative;top:5px;" width="24" height="24"></a>
+      </div>
+    </iron-dropdown>
+  </div>
+  <div style="display:block;float:right">
+    <a href="#jaison-dropdown"><div class="profile" style="background-image: url('./images/jaison.jpg')" onclick="document.getElementById('jaison-dropdown').toggle();"></div></a>
+    <iron-dropdown id="jaison-dropdown" horizontal-align="right" vertical-align="top">
+      <div id="jaison" class="dropdown-content">
+                Jaison Saji | <a href="https://www.facebook.com/Jaison.hacker"><img src="./images/facebook-box.png" style="position:relative;top:5px;" width="24" height="24"></a>
+      </div>
+    </iron-dropdown>
+  </div>
+</center>
+  <hr style="width:80%">
+  <div>
+    <h3>About Website </h3>
+    <br>
+    This site has incorparated elements of modular design and technology.
+    <br>From the console (on clicking the mascot), to the events page's auto generation from coded templates; we tried to stick to the theme - <a href="#mobiux_logo" class="anchor">MOBIUX</a>
+    <br>The source code is available on github <br><a class="anchor" href="https://github.com/jfdpaul/Gateways16">(https://github.com/jfdpaul/Gateways16)</a>.
+  </div>
+</paper-dialog>
+
 
 
 <!-- Toasts-->
@@ -872,10 +895,10 @@ function animateGateways(){
     }
 
   }
-  function pauseVideo(){
-      var vdiag=document.getElementById("videodialog");
+  function pauseTeaser(){
+      var vdiag=document.getElementById("teaserdialog");
       vdiag.close();
-      var iframe = document.getElementById('myvideo');
+      var iframe = document.getElementById('myteaser');
       iframe.src = iframe.src;
     }
     function toggleMenu() {
