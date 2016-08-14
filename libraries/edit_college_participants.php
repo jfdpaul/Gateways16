@@ -17,11 +17,11 @@ if(isset($_GET['pid']) && isset($_GET['name']) && isset($_GET['email']) && isset
 	echo "test".$name;
 	if($name!='' && $email!='' && $phone!=''){
 	$db->update_college_participants($_SESSION['col_id'],$p_id,$name,$email,$phone);
-	header("Location: ./../profile.php");
+	header("Location: ../pages/profile.php");
   
 	}
   else
-  	header('Location: ./../profile.php?error=1');
+  	header('Location: ../pages/profile.php?error=1');
 	
 }
 }

@@ -2,13 +2,13 @@
 session_start();
 error_reporting(E_ALL); 
   ini_set('display_errors', 1); 
-require_once('libraries/db_connect.php');
+require_once('../libraries/db_connect.php');
 
 if(isset($_POST['email']) && isset($_POST['pass']) && $_POST['email']!='' && $_POST['pass']!=''){
     $col_id=$db->authenticate_college($_POST['email'],$_POST['pass']);
     $col_name=$db->get_college_name($col_id);
     if($col_id==-1){
-      header("Location: index.php?error=1");
+      header("Location: ../index.php?error=1");
       }
       else{
         $_SESSION['col_id']=$col_id;
@@ -17,7 +17,7 @@ if(isset($_POST['email']) && isset($_POST['pass']) && $_POST['email']!='' && $_P
   }
 else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     echo "test";
-    header("Location: index.php");
+    header("Location: ../index.php");
 }  
    //echo $_SESSION['col_id'];
 ?>
@@ -28,18 +28,18 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
   <title>College Profile | Gateways</title>
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <script src="./bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <script  src="./jquery.min.js"></script>
-    <link rel="import" href="./bower_components/polymer/polymer.html">
-    <link rel="import" href="./bower_components/iron-selector/iron-selector.html">
-    <link rel="import" href="./bower_components/paper-item/paper-item.html">
-    <link rel="import" href="./bower_components/paper-listbox/paper-listbox.html">
-    <link rel="import" href="./bower_components/paper-input/paper-input.html">
-    <link rel="import" href="./bower_components/paper-toast/paper-toast.html">
-    <link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
-    <link rel="import" href="./bower_components/paper-button/paper-button.html">
-    <link rel="import" href="./bower_components/paper-toolbar/paper-toolbar.html">
-    <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script  src="../jquery.min.js"></script>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+    <link rel="import" href="../bower_components/paper-item/paper-item.html">
+    <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
     
 
@@ -142,7 +142,7 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
 <body onload="fielderror();">
 <paper-toolbar>
   <span class="title">Profile: <?php echo $_SESSION['col_name']; ?></span>
-  <a href="./"><paper-button >Home</paper-button></a>
+  <a href="../"><paper-button >Home</paper-button></a>
   <a href="logout.php"><paper-button  >Logout</paper-button></a>
   </paper-toolbar>
  
@@ -180,7 +180,7 @@ if(isset($row[0]['name'])){
 <b><paper-input auto-validate id="email<?php echo $row[$i]['pid']; ?>" is="iron-input" type="email" value="<?php echo $row[$i]['email'] ?>" disabled="true"></b> 
 <label>Phone number:</label> 
 <b><paper-input id="phone<?php echo $row[$i]['pid']; ?>" type="number" is="iron-input"  value="<?php echo $row[$i]['mobile'] ?>" disabled="true" char-counter maxlength=10></b>
- <?php echo "<a href='libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
+ <?php echo "<a href='../libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
 echo "<paper-button noink raised onclick='edit(".$row[$i]['pid'].");' id='edit".$row[$i]['pid']."'  value='edit' alt='edit' title='edit' > Edit </paper-button>";
  ?>
  </div>
@@ -242,7 +242,7 @@ function fielderror(){
 function updatecount(){
 
 var count=$('#acc_count').val();  
-    $("#message").load('libraries/update_accomodation_count.php', {"c_id":<?php echo $_SESSION['col_id']; ?>,"acc_count":count} );
+    $("#message").load('../libraries/update_accomodation_count.php', {"c_id":<?php echo $_SESSION['col_id']; ?>,"acc_count":count} );
      console.log(count);
      toast1.open();
 }
@@ -275,7 +275,7 @@ function edit(id){
              toastPhone.open();
         }
         else
-            window.location.href = "libraries/edit_college_participants.php?pid="+id+"&name="+name+"&email="+email+"&phone="+phone;
+            window.location.href = "../libraries/edit_college_participants.php?pid="+id+"&name="+name+"&email="+email+"&phone="+phone;
     }    
    }
 
@@ -338,7 +338,7 @@ $("#submit").click(function(event){
 
         //|| phone_array[id_count-1]=="" || email_array[id_count-1]=="" 
       if(flag==0){
-      $("#list_participants").load('libraries/add_college_participants.php', {"name_array":name_array,"email_array":email_array,"phone_array":phone_array,"college_id":c_id} );
+      $("#list_participants").load('../libraries/add_college_participants.php', {"name_array":name_array,"email_array":email_array,"phone_array":phone_array,"college_id":c_id} );
        $("#addParticipant").empty();
       $("#submit").css("visibility","hidden");
       $("#clear").css("visibility","hidden");

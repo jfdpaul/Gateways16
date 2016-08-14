@@ -7,5 +7,5 @@ if(isset($_GET['pid'])){
 	$p_id=$_GET['pid'];
   $db->delete_college_participants($p_id);	
 }
-  header("Location: ./../profile.php");
+  header("Location: ../pages/profile.php");
 ?>

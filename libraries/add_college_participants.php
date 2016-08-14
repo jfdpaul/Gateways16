@@ -25,14 +25,14 @@ if(isset($row[0]['name'])){
 <label>Phone number:</label> 
 <b><paper-input id="phone'.$row[$i]['pid'].'" type="number" maxlength=10 value="'.$row[$i]['mobile'].'" disabled="true"></b>';
 
- echo "<a href='libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
+ echo "<a href='../libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
 echo "<paper-button noink raised onclick='edit(".$row[$i]['pid'].");' id='edit".$row[$i]['pid']."'  value='edit' alt='edit' title='edit' > Edit </paper-button></div>";
     }
   }
 }
 else
 {
-	header("Location: ./../index.php");
+	header("Location: ../index.php");
 }
   //die('message'.$e_id) ;
  // $team_members=$_REQUEST['team_members'];
