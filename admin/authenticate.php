@@ -14,16 +14,16 @@
       $_SESSION['privilege']=$res["privilege"];
 
       if($_SESSION['privilege']==15){   //send to admin page
+        $_SESSION["event_name"]="ADMINISTRATOR";
         header('Location: ./admin.php');
       }
       else if($_SESSION['privilege']==5){   //send to eventadmin.php page with e_id from events_organizers using o_id
 
         $res=$db->get_organizer_details_for_uname_password($uname,$password); //authenticate user and return message
         if($res['message']=="success"){
-          $_SESSION["e_id"]=$res["e_id"];
           $_SESSION["event_name"]=$res["event_name"];
         }
-        header('Location: ./eventadmin.php?e_id='.$_SESSION["e_id"]);
+        header('Location: ./eventadmin.php?e_id='.$res["e_id"]);
       }
     }
     else{   //redirect to login

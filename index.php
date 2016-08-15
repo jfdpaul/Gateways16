@@ -5,7 +5,7 @@
     ini_set('display_errors', 1);
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'mysql';
+    $dbpass = 'root';
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
     date_default_timezone_set('Asia/Kolkata');//or change to whatever timezone you want
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
@@ -149,8 +149,8 @@
             background-image:url('./images/mascot.png');
             background-repeat:no-repeat;
             background-size:100% 100%;
-            min-height:350px;
-            min-width:320px;
+            min-height:250px;
+            min-width:250px;
             display:inline-block;
             z-index:9990;
           }
@@ -603,7 +603,7 @@
         <div id="gatewaysLogo"></div>
         <div id="menu_items" class="flexchild" style="margin-top:50px">
           <iron-selector selected="0">
-            <div class="nav"><a class="anchor" href="#about"  ><paper-item class="nav_links"><paper-ripple></paper-ripple>About</paper-item></a></div>
+            <div class="nav"><a class="anchor" href="#about"><paper-item class="nav_links"><paper-ripple></paper-ripple>About</paper-item></a></div>
             <div class="nav"><a  class="anchor" href="./pages/events.php" ><paper-item class="nav_links" ><paper-ripple></paper-ripple>Events</paper-item></a></div>
             <div class="nav" style="position:relative;"><a  class="anchor" href="#more" ><paper-item class="nav_links" onclick="toggleMenu()"><paper-ripple></paper-ripple>More</paper-item></a>
               <paper-listbox id="menu" style="visibility:hidden;background-color:#111;z-index:1;position:absolute;padding:10px;opacity:0.9" onclick="toggleMenu()">
@@ -694,6 +694,7 @@
               <li>Outstation students should inform before 4th September 2016 for accommodation.</li>
               <li>Registration fee of Rs 100/- per participant. In no case, the fee will be refunded.</li>
               <li>Kindly ensure that the participant should report 15 minutes prior to the event venue.</li>
+              <li>On-the-spot "event registration" will be conducted.</li>
             </ul>
           </div>
         </div>
@@ -728,6 +729,8 @@
               <br><br><b id="gateways_copyright">&copy Gateways 2016</b>
             </div>
           </span>
+          <span style="float:left;background-color:#ababab;font-size:14px;padding:4px;margin:5px;">Contact us to get your College's username and password</span>
+          <span style="float:right;background-color:#ababab;font-size:14px;padding:4px;margin:5px;">Previous gateways (<a class="anchor" href="http://cs.christuniversity.in/gateways2015">2015</a>,<a class="anchor" href="http://cs.christuniversity.in/gateways2013"> 2013</a>,<a class="anchor" href="http://cs.christuniversity.in/gateways2012"> 2012</a>)</span>
         </footer>
     </article>
   </body>
@@ -801,7 +804,7 @@
      <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>College Profile Login</h2></center>
      <div id="container" style="text-align:center;">
       <form method="post" action="pages/profile.php">
-      <paper-input type="text" name="email" placeholder="email"/></paper-input>
+      <paper-input type="text" name="email" placeholder="username"/></paper-input>
       <paper-input type="password" name="pass" placeholder="password"/></paper-input>
       <paper-button type="submit" style="background-color:#737379;" value="login"/><button style="color:#fff;">Login</button></paper-button>
 
@@ -813,7 +816,7 @@
   <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>Website Developers</h2></center>
 <center>
   <div style="display:block;float:left">
-    <a href="#jonathan-dropdown"><div class="profile" style="background-image: url('./images/jonathan.jpg')" onclick="document.getElementById('jonathan-dropdown').toggle();"></div></a>
+    <a href="#jonathan-dropdown"><div class="profile" style="background-image: url('./images/jonty.jpg')" onclick="document.getElementById('jonathan-dropdown').toggle();"></div></a>
     <iron-dropdown id="jonathan-dropdown" horizontal-align="right" vertical-align="top">
       <div id="jonathan" class="dropdown-content">
                 Jonathan Fidelis Paul | <a href="https://www.facebook.com/jonathan.paul.5076"><img src="./images/facebook-box.png" style="position:relative;top:5px;" width="24" height="24"></a>
@@ -830,10 +833,10 @@
   </div>
 </center>
   <hr style="width:80%;clear:both;">
+  <div>Special thanks to the Design team :<br> Pema Gurung, Rohith Joseph, Denver Braganzer and Lezwon Castellino</div>
   <div>
     <h3>About Website </h3>
-    <br>
-    This site has incorparated elements of modular design and technology.
+    This site has incorporated elements of modular design and technology.
     <br>From the console (on clicking the mascot), to the events page's auto generation from coded templates; we tried to stick to the theme - <a href="#mobiux_logo" class="anchor">MOBIUX</a>
     <br>The source code is available on github <br><a class="anchor" href="https://github.com/jfdpaul/Gateways16">(https://github.com/jfdpaul/Gateways16)</a>.
   </div>
@@ -880,6 +883,7 @@ function animateGateways(){
     var console=document.getElementById("console");
     if(console.style.visibility=="hidden"){
       console.style.visibility="visible";
+      console.$.input1.focus();
     }
     else {
       console.style.visibility="hidden";

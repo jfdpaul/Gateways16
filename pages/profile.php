@@ -1,7 +1,7 @@
 <?php
 session_start();
-error_reporting(E_ALL); 
-  ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+  ini_set('display_errors', 1);
 require_once('../libraries/db_connect.php');
 
 if(isset($_POST['email']) && isset($_POST['pass']) && $_POST['email']!='' && $_POST['pass']!=''){
@@ -18,14 +18,14 @@ if(isset($_POST['email']) && isset($_POST['pass']) && $_POST['email']!='' && $_P
 else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     echo "test";
     header("Location: ../index.php");
-}  
+}
    //echo $_SESSION['col_id'];
 ?>
 
-<!Doctype html>
 <html onload="toast1.open();">
 <head>
   <title>College Profile | Gateways</title>
+  <link rel="icon" type="image/png" href="../images/gateways-logo.png" />
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
@@ -41,9 +41,7 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
     <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
-    
 
-   
 
    <style is="custom-style">
       * {
@@ -75,6 +73,9 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
         paper-input {
           font-size: 10px;
         }
+        paper-toolbar{
+          background: #007aa0;
+        }
         paper-toolbar a {
           text-decoration: none;
           color:#fff;
@@ -87,8 +88,8 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
           text-decoration: none;
           color:#fff;
         }
-       
-    
+
+
     #label
     {
     background-color:#ccc;
@@ -101,10 +102,10 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     width:98%;
     padding:10px;
     margin:0 auto;
-    background-color:#ccc;
+    background-color:#111122;
     text-align: center;
    }
- 
+
    #main{
     text-align: center;
     margin:0 auto;
@@ -124,7 +125,7 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
     margin:0 auto;
     margin-left:10px;
     margin-top:10px;
-   
+
    }
      footer{
         float:left;
@@ -143,17 +144,18 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
 <paper-toolbar>
   <span class="title">Profile: <?php echo $_SESSION['col_name']; ?></span>
   <a href="../"><paper-button >Home</paper-button></a>
+  <a href="../pages/events.php"><paper-button >Events</paper-button></a>
   <a href="logout.php"><paper-button  >Logout</paper-button></a>
   </paper-toolbar>
- 
+
    <div id="main">
 	<paper-button name="add_participant" id="add">Add new participant</paper-button>
 	<input type="hidden" id="participant_count" value="0"/>
-	<div id="addParticipant"> 
+	<div id="addParticipant">
     </div>
         <paper-button name="Add" style="visibility:hidden;"  id="submit">Add</paper-button>
         <paper-button name="Clear" style="visibility:hidden;" onclick="location.reload();"  id="clear">Clear</paper-button>
-   
+
 	<div id="message">
 	</div>
    <hr/>
@@ -166,7 +168,7 @@ else if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){
 </div>
 
 
-<div id="list_participants" style="width:100%;margin-left:-7px;" >   
+<div id="list_participants" style="width:100%;margin-left:-7px;" >
  <?php
 $row=$db->get_college_participants($_SESSION['col_id']);
 $l=count($row);
@@ -174,13 +176,13 @@ if(isset($row[0]['name'])){
      for($i=0;$i<$l;$i++){
       ?>
   <div id="wrapper" style="position:relative;">
-  <label>Name:</label> 
-<b><paper-input auto-validate id="name<?php echo $row[$i]['pid']; ?>" is="iron-input" type="text" value="<?php  echo $row[$i]['name'] ?>" disabled="true"></b>    
-<label>Email:</label> 
-<b><paper-input auto-validate id="email<?php echo $row[$i]['pid']; ?>" is="iron-input" type="email" value="<?php echo $row[$i]['email'] ?>" disabled="true"></b> 
-<label>Phone number:</label> 
+  <label>Name:</label>
+<b><paper-input auto-validate id="name<?php echo $row[$i]['pid']; ?>" is="iron-input" type="text" value="<?php  echo $row[$i]['name'] ?>" disabled="true"></b>
+<label>Email:</label>
+<b><paper-input auto-validate id="email<?php echo $row[$i]['pid']; ?>" is="iron-input" type="email" value="<?php echo $row[$i]['email'] ?>" disabled="true"></b>
+<label>Phone number:</label>
 <b><paper-input id="phone<?php echo $row[$i]['pid']; ?>" type="number" is="iron-input"  value="<?php echo $row[$i]['mobile'] ?>" disabled="true" char-counter maxlength=10></b>
- <?php echo "<a href='../libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;"; 
+ <?php echo "<a href='../libraries/delete_college_participants.php?pid=".$row[$i]['pid']."'><paper-button 'raised>delete</paper-button></a>&nbsp;";
 echo "<paper-button noink raised onclick='edit(".$row[$i]['pid'].");' id='edit".$row[$i]['pid']."'  value='edit' alt='edit' title='edit' > Edit </paper-button>";
  ?>
  </div>
@@ -236,17 +238,17 @@ function fielderror(){
     echo "toast2.open();";
   }
   ?>
-  
+
 }
  toast1.fitInto = main;
 function updatecount(){
 
-var count=$('#acc_count').val();  
+var count=$('#acc_count').val();
     $("#message").load('../libraries/update_accomodation_count.php', {"c_id":<?php echo $_SESSION['col_id']; ?>,"acc_count":count} );
      console.log(count);
      toast1.open();
 }
- 
+
 //edit participant details
 function edit(id){
     var name=$("#name"+id).val();
@@ -254,9 +256,9 @@ function edit(id){
     var phone=$("#phone"+id).val();
     var flag=$('#edit'+id).html().split(" ");
     var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
-     
+
      console.log(flag[1]);
-     
+
     if(flag[1]=="Edit"){
         $("#name"+id).prop('disabled', false);
         $("#email"+id).prop('disabled', false);
@@ -276,7 +278,7 @@ function edit(id){
         }
         else
             window.location.href = "../libraries/edit_college_participants.php?pid="+id+"&name="+name+"&email="+email+"&phone="+phone;
-    }    
+    }
    }
 
    //add new participants
@@ -305,7 +307,7 @@ $("#add").click(function(event){
      $("#participant_count").val(count);
    });
 
-//submit form  
+//submit form
 $("#submit").click(function(event){
      var name_array=[];
      var email_array=[];
@@ -336,7 +338,7 @@ $("#submit").click(function(event){
 
         }
 
-        //|| phone_array[id_count-1]=="" || email_array[id_count-1]=="" 
+        //|| phone_array[id_count-1]=="" || email_array[id_count-1]==""
       if(flag==0){
       $("#list_participants").load('../libraries/add_college_participants.php', {"name_array":name_array,"email_array":email_array,"phone_array":phone_array,"college_id":c_id} );
        $("#addParticipant").empty();
@@ -344,7 +346,7 @@ $("#submit").click(function(event){
       $("#clear").css("visibility","hidden");
       $("#participant_count").attr("value","0");
       }
-      
+
    });
 </script>
 

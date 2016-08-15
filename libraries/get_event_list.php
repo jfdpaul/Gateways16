@@ -8,9 +8,6 @@
     echo "<tr>";
     echo "<td>".$value['e_id']."</td>";
     echo "<td>".$value['name']."</td>";
-    echo "<td>".$value['start_time']."</td>";
-    echo "<td>".$value['end_time']."</td>";
-    echo "<td>".$value['description']."</td>";
     echo "</tr>";
   }
   echo "</table>";

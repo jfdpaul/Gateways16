@@ -8,8 +8,8 @@
     echo "<tr>";
     echo "<td>".$value['marks']."</td>";
     echo "<td>".$value['t_id']."</td>";
-    echo "<td>".$value['first_name']." ".$value['last_name']."</td>";
-    echo "<td>".$value['name']."</td>";
+    echo "<td>".$value['p_name']"</td>";
+    echo "<td>".$value['col_name']."</td>";
     echo "</tr>";
   }
   echo "</table>";

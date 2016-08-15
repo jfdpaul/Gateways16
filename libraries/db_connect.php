@@ -6,7 +6,7 @@ class db_connect{
     // property declaration
     private $dbhost = 'localhost';
     private $dbuser = 'root';
-    private $dbpass = 'mysql';
+    private $dbpass = 'root';
     private $conn;
 
     public function connect(){
@@ -101,7 +101,7 @@ class db_connect{
       /*Returns all participant names, team_id and college name for an event_id*/
       public function get_participants_for_event_id($e_id){
 
-        $sql="SELECT teams.t_id,teams.p_id,first_name,last_name,colleges.name,teams_events.marks from colleges,participants,teams_events,teams where $e_id=teams_events.e_id and teams.t_id = teams_events.t_id and teams.p_id= participants.p_id and colleges.col_id=participants.col_id order by teams.t_id,colleges.col_id";
+        $sql="SELECT teams.t_id,teams.p_id,participants.name p_name,colleges.name col_name,teams_events.marks from colleges,participants,teams_events,teams where $e_id=teams_events.e_id and teams.t_id = teams_events.t_id and teams.p_id= participants.p_id and colleges.col_id=participants.col_id order by teams.t_id,colleges.col_id";
 
         $retval = mysqli_query( $this->conn,$sql );
         if(! $retval ){
@@ -192,8 +192,8 @@ class db_connect{
 
 /**ADMIN PARTICIPANT*/
       /*Function to add a new college*/
-      public function add_new_participant($first_name,$last_name,$email,$mobile,$col_id){
-        $sql="INSERT into participants(first_name,last_name,email,mobile,col_id) values('$first_name','$last_name','$email','$mobile',$col_id)";
+      public function add_new_participant($name,$email,$mobile,$col_id){
+        $sql="INSERT into participants(name,email,mobile,col_id) values('$name','$email','$mobile',$col_id)";
 
         $retval = mysqli_query( $this->conn,$sql );
         if(! $retval ){
@@ -203,7 +203,7 @@ class db_connect{
 
       /*Function to show college details*/
       public function get_participant_details(){
-        $sql="SELECT * from participants";
+        $sql="SELECT p_id,participants.name p_name,mobile,participants.email,colleges.name col_name from participants,colleges where participants.col_id =colleges.col_id ORDER BY colleges.col_id";
 
         $retval = mysqli_query( $this->conn,$sql );
         if(! $retval ){
@@ -241,17 +241,15 @@ class db_connect{
            die('Could not delete data: ' . mysqli_error($this->conn));
           }
           $row = mysqli_fetch_array($retval, MYSQLI_ASSOC);
-          if($first_name==null)
-            $first_name=$row['first_name'];
-          if($last_name==null)
-            $last_name=$row['last_name'];
+          if($name==null)
+            $name=$row['name'];
           if($email==null)
             $email=$row['email'];
           if($mobile==null)
             $mobile=$row['mobile'];
           if($col_id==null)
             $col_id=$row['col_id'];
-          $sql="UPDATE participants SET first_name = '$first_name', last_name='$last_name', email='$email',mobile='$mobile',col_id=$col_id where p_id = $p_id";
+          $sql="UPDATE participants SET name = '$name', email='$email',mobile='$mobile',col_id=$col_id where p_id = $p_id";
 
 
           $retval = mysqli_query( $this->conn,$sql );
@@ -324,6 +322,41 @@ class db_connect{
        return $rows;
 
       }
+
+
+        //Function to show all event related details (including venue and time)
+        public function get_event_organizers_rules_venue_time_details(){
+          $sql="SELECT events.e_id,events.code_name,events.name e_name,events.description,rounds.start_time,rounds.end_time,venues.name v_name,venues.block,venues.floor,organizers.name o_name,organizers.mobile from events,events_organizers,organizers,venues,rounds where organizers.o_id=events_organizers.o_id and venues.v_id=rounds.v_id and events_organizers.e_id=rounds.e_id and rounds.round_id=1 and events.e_id=events_organizers.e_id";
+          $retval = mysqli_query( $this->conn,$sql );
+          if(! $retval ){
+           die('Error: ' . mysqli_error($this->conn));
+           }
+           $rows=array();
+           $count=1;
+           while(($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))!=null){
+             $rows=$rows+array($count=>$row);
+             $count=$count+1;
+           }
+           //echo json_encode($rows);
+
+            foreach($rows as $key=>$value){
+              //echo json_encode($value);
+              $sql="SELECT rule from rules where rules.e_id = ".$value['e_id'];
+              $retval = mysqli_query( $this->conn,$sql );
+              if(! $retval ){
+               die('Could not delete data: ' . mysqli_error($this->conn));
+               }
+               $rule=array();
+               $count=1;
+               while(($row = mysqli_fetch_array($retval, MYSQLI_ASSOC))!=null){
+                 $rule=$rule+array($count=>$row);
+                 $count=$count+1;
+               }
+               $rows[$value['e_id']]=$rows[$value['e_id']]+array("rules"=>$rule);
+               //echo json_encode($value);
+             }
+            return $rows;
+        }
 
       //Function to delete a college by its id
       public function delete_event_by_id( $e_id ){
@@ -498,7 +531,7 @@ class db_connect{
     }
 
     public function get_event_scores_by_event_id($e_id){
-      $sql="SELECT marks,teams_events.t_id,first_name,last_name,colleges.name from teams_events,teams,participants,events,colleges where teams_events.t_id=teams.t_id and teams_events.e_id=events.e_id and participants.p_id=teams.p_id and participants.col_id=colleges.col_id and events.e_id =$e_id order by marks desc,teams_events.t_id ";
+      $sql="SELECT marks,teams_events.t_id,participants.name p_name,colleges.name col_name from teams_events,teams,participants,events,colleges where teams_events.t_id=teams.t_id and teams_events.e_id=events.e_id and participants.p_id=teams.p_id and participants.col_id=colleges.col_id and events.e_id =$e_id order by marks desc,teams_events.t_id ";
       $retval = mysqli_query( $this->conn,$sql );
       if(! $retval ){
        die('Could not delete data: ' . mysqli_error($this->conn));
@@ -515,7 +548,7 @@ class db_connect{
     }
 
     public function get_college_scores(){
-      $sql="SELECT sum(marks) score,colleges.name from teams_events,teams,participants,colleges where teams_events.t_id=teams.t_id and teams.p_id=participants.p_id and participants.col_id=colleges.col_id group by colleges.col_id order by score desc";
+      $sql="SELECT sum(marks) score,colleges.name col_name from teams_events,teams,participants,colleges where teams_events.t_id=teams.t_id and teams.p_id=participants.p_id and participants.col_id=colleges.col_id group by colleges.col_id order by score desc";
       $retval = mysqli_query( $this->conn,$sql );
       if(! $retval ){
        die('Could not delete data: ' . mysqli_error($this->conn));
@@ -531,7 +564,7 @@ class db_connect{
     }
 
     public function get_event_score_details_for_id($e_id){
-      $sql="SELECT marks,teams.t_id,participants.first_name,participants.last_name,colleges.name from teams_events,teams,participants,colleges where teams_events.t_id=teams.t_id and teams.p_id=participants.p_id and participants.col_id=colleges.col_id and teams_events.e_id = $e_id order by marks desc";
+      $sql="SELECT marks,teams.t_id,participants.name p_name,colleges.name col_name from teams_events,teams,participants,colleges where teams_events.t_id=teams.t_id and teams.p_id=participants.p_id and participants.col_id=colleges.col_id and teams_events.e_id = $e_id order by marks desc";
       $retval = mysqli_query( $this->conn,$sql );
       if(! $retval ){
        die('Could not delete data: ' . mysqli_error($this->conn));
@@ -629,5 +662,5 @@ class db_connect{
 
 $db=new db_connect();
 $db->connect();
-//echo json_encode($db->get_event_organizers_n_rules_details());
+//echo json_encode($db->get_event_organizers_rules_venue_time_details());
 ?>

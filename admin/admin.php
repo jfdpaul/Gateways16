@@ -5,6 +5,7 @@
 <head>
   <script  src="../jquery.min.js"></script>
   <style>
+
   .list_holder{
     padding:5px;
     margin:25px;
@@ -40,17 +41,6 @@
   ?>
   <div style="width:99%;float:left;background:#456;padding:4px">
     <div id="college_menu">
-      <!--
-      <a class="menu_item" href="#">College Details</a>
-      <a class="menu_item" href="#">Organizer Details</a>
-      <a class="menu_item" href="#">Event Details</a>
-      <a class="menu_item" href="#">Event Details</a>
-      <br>
-
-      -get number of colleges participating<br>
-      -list colleges in ascending order of score, name (with no of participants)<br>
-      -show details of organizers (contact,name,username,password)<br>
-      -show event details (winners with college name,no of participants,venue,duration)<br>-->
 
 <!-- Participants -->
       <div class="list_holder">
@@ -58,16 +48,14 @@
         <div id="participant_message"></div>
         <div>
           <input id="update_p_id" placeholder="Participant Id">
-          <input id="update_p_first_name" placeholder="First Name">
-          <input id="update_p_last_name" placeholder="Last Name">
+          <input id="update_p_name" placeholder="Name">
           <input id="update_p_email_id" placeholder="Email">
           <input id="update_p_mobile" type="number" placeholder="Mobile">
           <input id="update_p_col_id" placeholder="College Id">
           <br><a href="#participant_message" onclick="update_participant()">Update</a>
           <hr>
           <br>
-          <input id="add_p_first_name" placeholder="First Name">
-          <input id="add_p_last_name" placeholder="Last Name">
+          <input id="add_p_name" placeholder="Name">
           <input id="add_p_email_id" placeholder="Email">
           <input id="add_p_mobile" type="number" placeholder="Mobile">
           <input id="add_p_col_id" placeholder="College Id">
@@ -79,11 +67,12 @@
         </div>
         <div>
           <h2><a href="#participant_list" onclick="get_participant_list()">Participant List</a></h2>
+          <span onclick="printAPart('participant_list')">Print</span>
           <div id="participant_list"></div>
         </div>
       </div>
 
-<!-- Events -->
+<!-- Events
       <div class="list_holder">
         <h1>Events</h1>
         <div id="event_message"></div>
@@ -111,6 +100,7 @@
           <div id="event_list"></div>
         </div>
       </div>
+ -->
 
 <!-- Organizers -->
       <div class="list_holder">
@@ -140,6 +130,7 @@
         </div>
         <div>
           <h2><a href="#organizer_list" onclick="get_organizer_list()">Organizer List</a></h2>
+          <span onclick="printAPart('organizer_list')">Print</span>
           <div id="organizer_list"></div>
         </div>
       </div>
@@ -163,6 +154,7 @@
         </div>
         <div>
           <h2><a href="#college_list" onclick="get_college_list()">College List</a></h2>
+          <span onclick="printAPart('college_list')">Print</span>
           <div id="college_list"></div>
         </div>
       </div>
@@ -174,12 +166,11 @@
 
 /**PARTICIPANT Functions*/
 function add_participant(){
-    var p_first_name = $("#add_p_first_name").val();
-    var p_last_name = $("#add_p_last_name").val();
+    var p_first_name = $("#add_p_name").val();
     var p_email_id = $("#add_p_email_id").val();
     var p_mobile = $("#add_p_mobile").val();
     var p_col_id = $("#add_p_col_id").val();
-    $("#participant_message").load('../libraries/add_new_participant.php', {"p_first_name":p_first_name,"p_last_name":p_last_name,"p_email_id":p_email_id,"p_mobile":p_mobile,"p_col_id":p_col_id});
+    $("#participant_message").load('../libraries/add_new_participant.php', {"p_name":p_name,"p_email_id":p_email_id,"p_mobile":p_mobile,"p_col_id":p_col_id});
  }
 
 function delete_participant(){
@@ -291,5 +282,15 @@ function delete_organizer(){
 
    function get_college_list(){
         $("#college_list").load('../libraries/get_college_list.php');
+    }
+
+    function printAPart(divId){
+      var prtContent = document.getElementById(divId);
+      var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+      WinPrint.document.write(prtContent.innerHTML);
+      WinPrint.document.close();
+      WinPrint.focus();
+      WinPrint.print();
+      WinPrint.close();
     }
 </script>

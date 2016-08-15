@@ -1,5 +1,6 @@
 <?php
   session_start();
+  require_once('../libraries/db_connect.php');
 ?>
 <html>
   <script  src="../jquery.min.js"></script>
@@ -24,18 +25,19 @@
           </tr>
 
         <?php
-            require_once('../libraries/db_connect.php');
             $res=$db->get_participants_for_event_id($_REQUEST['e_id']);
-            foreach($res as $key => $value){
-              echo "<tr>";
-              echo "<td><input type='checkbox' name='participant_id' value='".$value['p_id']."'</td>";
-              echo "<td>".$value['p_id']."</td>";
-              echo "<td>".$value['first_name']." ".$value['last_name']."</td>";
-              echo "<td>".$value['t_id']."</td>";
-              echo "<td>".$value['name']."</td>";
-              echo "<td>".$value['marks']."</td>";
-              echo "</tr>";
-            }
+            //echo json_encode($res);
+              foreach($res as $key => $value){
+                echo "<tr>";
+                echo "<td><input type='checkbox' name='participant_id' value='".$value['p_id']."'</td>";
+                echo "<td>".$value['p_id']."</td>";
+                echo "<td>".$value['p_name']."</td>";
+                echo "<td>".$value['t_id']."</td>";
+                echo "<td>".$value['col_name']."</td>";
+                echo "<td>".$value['marks']."</td>";
+                echo "</tr>";
+              }
+
          ?>
        </table><br>
        <button id="mark_present">Mark Present</button>
@@ -47,10 +49,10 @@
         <hr>
         <div id="team">
           <input type="hidden" id="participant_count" value="0">
-          <button id="add_button">+</button>
+          <button id="add_button">Add participant</button>
         </div>
         <input id="e_id" type="hidden" value="<?php echo $_REQUEST['e_id']?>">
-        <button id="add_team_button">Add Team</button>
+        <button id="add_team_button">Submit</button>
         <div id="insert_message"></div>
       </div>
 
@@ -94,6 +96,7 @@
      var inputBox = $("<input>");
      inputBox.attr("id",++count);
      inputBox.attr("type","number");
+     inputBox.attr("placeholder","participant id");
      var label=$("<label></label>").text(count);
      var br=$("<br>");
      $("#team").append(br,label,inputBox);
