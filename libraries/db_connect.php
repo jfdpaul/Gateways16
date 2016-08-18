@@ -341,7 +341,8 @@ class db_connect{
 
             foreach($rows as $key=>$value){
               //echo json_encode($value);
-              $sql="SELECT rule from rules where rules.e_id = ".$value['e_id'];
+              //$sql="SELECT rule from rules where rules.e_id = ".$value['e_id'];
+              $sql="SELECT rule from rules where e_id = ".$value['e_id'];
               $retval = mysqli_query( $this->conn,$sql );
               if(! $retval ){
                die('Could not delete data: ' . mysqli_error($this->conn));
@@ -352,7 +353,7 @@ class db_connect{
                  $rule=$rule+array($count=>$row);
                  $count=$count+1;
                }
-               $rows[$value['e_id']]=$rows[$value['e_id']]+array("rules"=>$rule);
+               $rows[$key]=$rows[$key]+array("rules"=>$rule);
                //echo json_encode($value);
              }
             return $rows;
@@ -436,7 +437,7 @@ class db_connect{
      }
 
      /*Function to update a college by its id*/
-     public function update_college_by_id( $col_id, $col_name ){
+     public function update_college_by_id( $col_id,$col_name,$col_email,$col_password,$col_contact ){
 
        if($col_id!=null){
 
@@ -448,9 +449,14 @@ class db_connect{
          $row = mysqli_fetch_array($retval, MYSQLI_ASSOC);
          if($col_name==null)
            $col_name=$row['name'];
+         if($col_contact==null)
+           $col_contact=$row['contact'];
+         if($col_password==null)
+           $col_password=$row['password'];
+         if($col_email==null)
+           $col_email=$row['email'];
 
-         $sql="UPDATE colleges SET name = '$col_name' where col_id = $col_id";
-
+         $sql="UPDATE colleges SET name = '$col_name',email= '$col_email', contact='$col_contact',password='$col_password' where col_id = $col_id";
 
          $retval = mysqli_query( $this->conn,$sql );
          if(! $retval ){

@@ -142,6 +142,9 @@
         <div>
           <input id="update_col_id" placeholder="College Id">
           <input id="update_col_name" placeholder="College name">
+          <input id="update_col_email" placeholder="email">
+          <input id="update_col_password" placeholder="password">
+          <input id="update_col_contact" placeholder="contact">
           <br><a href="#college_message" onclick="update_college()">Update</a>
           <hr>
           <br>
@@ -274,10 +277,13 @@ function delete_organizer(){
 
    function update_college(){
      var col_name=$("#update_col_name").val();
+     var col_email=$("#update_col_email").val();
+     var col_contact=$("#update_col_contact").val();
+     var col_password=$("#update_col_password").val();
      var col_id=$("#update_col_id").val();
      console.log(col_name);
-     if(col_id!=''&&col_name!='')
-     $("#college_message").load('../libraries/update_college_by_id.php',{"col_id":col_id,"col_name":col_name});
+     if(col_id!='')
+        $("#college_message").load('../libraries/update_college_by_id.php',{"col_id":col_id,"col_name":col_name,"col_contact":col_contact,"col_email":col_email,"col_password":col_password});
    }
 
    function get_college_list(){
