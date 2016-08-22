@@ -6,7 +6,7 @@ class db_connect{
     // property declaration
     private $dbhost = 'localhost';
     private $dbuser = 'root';
-    private $dbpass = 'root';
+    private $dbpass = 'mysql';
     private $conn;
 
     public function connect(){

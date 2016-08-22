@@ -5,7 +5,7 @@
     ini_set('display_errors', 1);
     $dbhost = 'localhost';
     $dbuser = 'root';
-    $dbpass = 'root';
+    $dbpass = 'mysql';
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,'gateways');
     date_default_timezone_set('Asia/Kolkata');//or change to whatever timezone you want
     $sql="INSERT into counter(time) values('".date('Y-m-d h:i:sa')."')";
@@ -618,9 +618,11 @@
         <div id="christLogo"></div>
         <div class="flexchild" style="display:block;float:right;margin-top:50px;">
           <iron-selector selected="0" style="display:block">
-           <div class="nav">
+            <div class="nav">
               <a class="anchor" href="#login"><paper-item class="nav_links" onclick="<?php $flag=0; if(!isset($_SESSION['col_id']) || $_SESSION['col_id']==''){ echo "login.open()"; }  else { $flag=1; echo "javascript:location.href='pages/profile.php'";}?>"><?php if($flag==0) echo "Login"; else echo "Profile"; ?> </paper-item></a>
                </div>
+                <div class="nav"><a class="anchor" href="#signup"><paper-item class="nav_links" onclick="signupdialog.open()">Sign Up</paper-item></a></div>
+         
           <div class="nav">
             <?php if($flag==1) echo '<a class="anchor" href="pages/logout.php"><paper-item class="nav_links" onclick="">Logout</paper-item></a>'; ?>
            </div>
@@ -806,6 +808,29 @@
       <form method="post" action="pages/profile.php">
       <paper-input type="text" name="email" placeholder="username"/></paper-input>
       <paper-input type="password" name="pass" placeholder="password"/></paper-input>
+      <paper-button type="submit" style="background-color:#737379;" value="login"/><button style="color:#fff;">Login</button></paper-button>
+
+      </form>
+      </div>
+</paper-dialog>
+
+<paper-dialog id="signupdialog" style="background:rgba(255,255,255,0.9); color:#fff;width:50%;" with-backdrop>
+     <center style="background:#007daf;padding-top:25px;padding-bottom:20px;"><h2>College Profile Sign Up</h2></center>
+     <div id="container" style="text-align:center;">
+      <form method="post" action="pages/profile.php">
+        <input list="colleges">
+        <datalist id="colleges">
+          <?php 
+          $sql="SELECT name FROM colleges";
+          $retval = mysqli_query($conn,$sql );
+          while($val=mysqli_fetch_assoc($retval)){
+            echo "<option value=\"".$val['name']."\"></option>";
+          }
+          ?>
+        </datalist>
+      <paper-input type="text" name="email" placeholder="enter email"/></paper-input>
+      <paper-input type="password" name="pass" placeholder="enter password"/></paper-input>
+      <paper-input type="password" name="rpass" placeholder="repeat password"/></paper-input>
       <paper-button type="submit" style="background-color:#737379;" value="login"/><button style="color:#fff;">Login</button></paper-button>
 
       </form>
